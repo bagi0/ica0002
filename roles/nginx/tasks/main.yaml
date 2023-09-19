@@ -1,3 +1,16 @@
 - name: NGINX is working and installed properly
   apt: 
+    name: nginx  
+
+- name: source default to destionation sites/enabled
+  copy:
+    src: default
+    dest: /etc/nginx/sites-enabled/default
+  notify: restart nginx
+
+- name: start nginx service
+  service:
     name: nginx
+    state: started 
+    enabled: yes
+  become: yes

@@ -1,0 +1,25 @@
+- name: user agama is added to the system
+  user:
+    name: agama
+    system: yes
+- name: creating the install directory
+  file:
+    state: directory
+    path: /opt/agama
+    owner: agama
+    group: agama
+    mode: 0755
+
+- name: python3-flask-sqlalchemy is running and installed
+  apt: 
+    name: python3-flask-sqlalchemy
+
+- name: Fetch 'agama.py' from github
+  get_url:
+    url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
+    dest: /opt/agama
+    mode: 0775
+
+- name: python3-pymysql is installed
+  apt: 
+    name: python3-pymysql
