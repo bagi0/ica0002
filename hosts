@@ -1,4 +1,4 @@
-bagi0-1 ansible_host=193.40.156.67 ansible_port=28522 ansible_user=ubuntu
+bagi0-1 ansible_host=193.40.156.67 ansible_port=4922 ansible_user=ubuntu
 
 [web_servers]
 bagi0-1
