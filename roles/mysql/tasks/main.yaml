@@ -1,0 +1,28 @@
+- name: Install mysql server
+  apt:
+    name: mysql-server
+
+- name: Pymsql installing
+  apt:
+    name: python3-pymysql
+
+- name: mysql config is fetched and mysql server is restarted
+  template:
+    src: override.cnf
+    dest: /etc/mysql/mysql.conf.d/override.cnf
+    mode: 0644
+  notify: restart mysql
+
+- name: MySQL database fethced
+  mysql_db:
+    name: "{{ mysql_database }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock 
+  no_log: True 
+
+- name: Creating mysql database user 
+  mysql_user:
+    name: "{{ mysql_user }}"
+    host: "%"
+    password: "{{ mysql_password }}"
+    priv: '{{ mysql_database }}.*:ALL'
+    login_unix_socket: /var/run/mysqld/mysqld.sock

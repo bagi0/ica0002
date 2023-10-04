@@ -7,8 +7,10 @@
 
 - name: copying file to server
   template:
-    src: agama.ini
+    src: agama.ini.j2
     dest: /etc/uwsgi/apps-enabled/agama.ini
+    owner: agama
+    mode: 0600
   notify: restart uwsgi
 
 
