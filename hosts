@@ -1,7 +1,10 @@
-bagi0-1 ansible_host=193.40.156.67 ansible_port=5122 ansible_user=ubuntu
-bagi0-2 ansible_host=193.40.156.67 ansible_port=2922 ansible_user=ubuntu
+bagi0-1 ansible_host=193.40.156.67 ansible_port=38222 ansible_user=ubuntu
+bagi0-2 ansible_host=193.40.156.67 ansible_port=27022 ansible_user=ubuntu
 
 [db_servers]
+bagi0-2
+
+[dns_servers]
 bagi0-2
 
 [web_servers]

@@ -13,6 +13,10 @@
     mode: 0600
   notify: restart uwsgi
 
+- name: changing resolv conf for vm1
+  template:
+    src: resolv.conf
+    dest: /etc/resolv.conf
 
 - name: start uwsgi service
   service:

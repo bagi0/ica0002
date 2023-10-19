@@ -1,4 +1,4 @@
-mysql_host: 192.168.42.29
+mysql_host: bagi0-2
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -9,3 +9,31 @@ mysql_password: !vault |
           6563346239616531300a333030363831363138653462626531366662373666666334346638356364
           34633136323631646536623533323564643131636264626132653732346364613238353763363364
           3666643830383665653639313035636562626464396638333333
+
+dns_forwarders:
+  - 8.8.8.8
+  - 1.1.1.1
+  - 9.9.9.9
+  - 9.9.9.10
+
+local_network: 192.168.42.0/23
+localhost: 127.0.0.0/8  
+localhost_address: 127.0.0.1
+
+vm1_ip: 192.168.43.{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}
+vm2_ip: 192.168.43.{{ hostvars['bagi0-2']['ansible_default_ipv4']['address'].split('.')[3] }}
+
+vm1_port_number : "{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}80"
+vm2_port_number : "{{ hostvars['bagi0-2']['ansible_default_ipv4']['address'].split('.')[3] }}80"
+
+
+domain: rabagh
+fqdn: rabagh.io
+
+dns_record:
+ - name: bagi0
+   type: A
+   ipaddress: 192.168.43.{{ hostvars['bagi0-2']['ansible_default_ipv4']['address'].split('.')[3] }}
+ - name: bagi0
+   type: A
+   ipaddress: 192.168.43.{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}
