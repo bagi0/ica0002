@@ -3,3 +3,12 @@
     name: nginx
     state: restarted
   become: yes
+ 
+- name: Reload systemd
+  shell: "systemctl daemon-reload"
+
+- name: restart nginx exporter
+  service:
+    name: nginx-prometheus-exporter
+    state: restarted
+  become: yes

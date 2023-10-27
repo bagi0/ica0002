@@ -20,3 +20,14 @@
       - agama
       - uwsgi
       - nginx
+      
+  - name: Configure Prometheus
+    hosts: prometheus
+    roles:
+      - prometheus
+      - nginx
+      
+  - name: Configure Grafana
+    hosts: grafana
+    roles:
+      - grafana

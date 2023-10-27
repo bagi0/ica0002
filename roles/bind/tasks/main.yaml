@@ -13,6 +13,16 @@
       state: started
       enabled: yes
 
+  - name: Bind9 exporter
+    ansible.builtin.apt:
+      name: prometheus-bind-exporter
+
+  - name: Start Bind9 exporter
+    ansible.builtin.service:
+      name: prometheus-bind-exporter
+      state: started
+      enabled: yes
+      
   - name: Configure options.j2
     ansible.builtin.template:
       src: templates/named.conf.options.j2

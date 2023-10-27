@@ -1,5 +1,5 @@
-bagi0-1 ansible_host=193.40.156.67 ansible_port=38222 ansible_user=ubuntu
-bagi0-2 ansible_host=193.40.156.67 ansible_port=27022 ansible_user=ubuntu
+bagi0-1 ansible_host=193.40.156.67 ansible_port=28022 ansible_user=ubuntu
+bagi0-2 ansible_host=193.40.156.67 ansible_port=45322 ansible_user=ubuntu
 
 [db_servers]
 bagi0-2
@@ -9,3 +9,9 @@ bagi0-2
 
 [web_servers]
 bagi0-1
+
+[prometheus]
+bagi0-2
+
+[grafana]
+bagi0-2
