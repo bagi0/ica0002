@@ -1,0 +1,11 @@
+---
+  - name: Initial setup
+    hosts: all
+    roles:
+      - init
+
+  - name: Configure Grafana
+    hosts: grafana
+    roles:
+      - grafana
+      - pinger

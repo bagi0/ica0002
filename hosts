@@ -1,5 +1,5 @@
-bagi0-1 ansible_host=193.40.156.67 ansible_port=28022 ansible_user=ubuntu
-bagi0-2 ansible_host=193.40.156.67 ansible_port=45322 ansible_user=ubuntu
+bagi0-1 ansible_host=193.40.156.67 ansible_port=27422 ansible_user=ubuntu
+bagi0-2 ansible_host=193.40.156.67 ansible_port=33622 ansible_user=ubuntu
 
 [db_servers]
 bagi0-2
@@ -14,4 +14,7 @@ bagi0-1
 bagi0-2
 
 [grafana]
+bagi0-2
+
+[influxdb]
 bagi0-2

@@ -20,6 +20,10 @@
       - agama
       - uwsgi
       - nginx
+  - name: Configure Influxdb
+    hosts: prometheus
+    roles:
+      - influxdb
       
   - name: Configure Prometheus
     hosts: prometheus
@@ -31,3 +35,4 @@
     hosts: grafana
     roles:
       - grafana
+      - pinger

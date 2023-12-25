@@ -19,6 +19,15 @@ mysql_login_pass: !vault |
           3065633866353430360a363165613763346165613032663031633839373738346564613263346432
           3764
           
+backup_user: backup
+mysql_backup_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          62343432353033316565663237666230666461363265386665343032323033393036623434393964
+          3366393336353731613262363831663138313137653137650a653363326633363431306337636437
+          66336362303931383737626133386431353365396637653531333162633262613033303965666230
+          3463656438646534390a356537636239653363336534386464666434333565353631376261356432
+          6138
+
 dns_forwarders:
   - 8.8.8.8
   - 1.1.1.1
@@ -46,3 +55,45 @@ dns_record:
  - name: bagi0
    type: A
    ipaddress: 192.168.43.{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}
+   
+   
+backup_server_ip: 192.168.42.132
+backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
+
+# Jobs for prometheus
+
+linux_port: 9100
+prometheus_port: 9090
+influxdb_port: 8086
+rsyslog_port: 6514
+
+node_exporter_port: 9100
+bind_exporter_port: 9119
+mysql_exporter_port: 9104
+nginx_exporter_port: 9113
+influxdb_exporter_port: 9324
+haproxy_exporter_port: 9101
+keepalived_exporter_port: 9165
+
+prometheus_jobs:
+  - name: linux
+    target_port: 9100
+    target_group: all
+  - name: bind9
+    target_port: 9119
+    target_group: dns_servers
+  - name: mysql
+    target_port: 9104
+    target_group: db_servers
+  - name: nginx
+    target_port: 9113
+    target_group: all
+  - name: influxdb
+    target_port: 9424
+    target_group: prometheus
+
+pinger_pings:
+  -  google.com
+  -  cloudflare.com
+  -  twitter.com
+  -  facebook.com

@@ -9,6 +9,6 @@
 
 - name: restart nginx exporter
   service:
-    name: nginx-prometheus-exporter
+    name: prometheus-nginx-exporter
     state: restarted
   become: yes

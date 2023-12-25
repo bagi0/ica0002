@@ -2,28 +2,26 @@
   apt: 
     name: nginx  
     
+- name: prometheus-nginx-exporter
+  ansible.builtin.apt:
+    name: prometheus-nginx-exporter
+    state: latest
+    
+- name: source default to destionation sites/enabled
+  template:
+    src: exporter
+    dest: /etc/nginx/sites-enabled/exporter
+  notify: restart nginx exporter
+  
 - name: source default to destionation sites/enabled
   template:
     src: default.j2
     dest: /etc/nginx/sites-enabled/default
   notify: restart nginx
-
-- name: prometheus-nginx-exporter
-  ansible.builtin.apt:
-    name: prometheus-nginx-exporter
-    state: latest
-
-- name: Create Nginx exporter service
-  template:
-    src: nginx-prometheus-exporter.service.j2
-    dest: /etc/systemd/system/nginx-prometheus-exporter.service
-  notify:
-   - restart nginx exporter
-   - Reload systemd
-
+  
 - name: Enable exporter service
   service:
-   name: nginx-prometheus-exporter
+   name: prometheus-nginx-exporter
    state: started
    enabled: yes
 

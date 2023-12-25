@@ -1,0 +1,16 @@
+---
+  - name: Initial setup
+    hosts: all
+    roles:
+      - init
+  - name: Prometheus
+    hosts: prometheus
+    roles:
+      - prometheus
+      - nginx
+      
+  - name: Configure Grafana
+    hosts: grafana
+    roles:
+      - grafana
+      - pinger

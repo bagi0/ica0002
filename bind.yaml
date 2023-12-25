@@ -1,0 +1,10 @@
+---
+  - name: Initial setup
+    hosts: all
+    roles:
+      - init
+
+  - name: Dns server
+    hosts: dns_servers
+    roles:
+      - bind

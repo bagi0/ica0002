@@ -48,3 +48,26 @@
     notify: 
         - Restart bind 
         - Reload rndc
+        
+  - name: Upload prometheus bind exporter var conf
+    ansible.builtin.template:
+      src: prometheus-bind-exporter
+      dest: /etc/default/prometheus-bind-exporter
+    notify:
+      - restart prometheus-bind-exporter
+
+  - name: Ensure bind_exporters is always started please
+    ansible.builtin.service:
+      name: prometheus-bind-exporter
+      enabled: yes
+      state: started
+
+  - name: restart prometheus-bind-exporter
+    ansible.builtin.service:
+     name: prometheus-bind-exporter
+     state: restarted
+    
+    
+    
+    
+   
