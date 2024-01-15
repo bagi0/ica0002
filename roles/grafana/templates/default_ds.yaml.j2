@@ -6,7 +6,7 @@ datasources:
     access: proxy
     url: http://{{ groups['prometheus'][0] }}:{{ prometheus_port }}/prometheus
     isDefault: True
-#    uid: prometheus
+    uid: prometheus
 
   - name: InfluxDB-Latency
     type: influxdb
@@ -14,7 +14,7 @@ datasources:
     url: http://{{ groups['influxdb'][0] }}:{{ influxdb_port }}
     isDefault: False
     database: latency
-#    uid: latency
+    uid: latency
 
   - name: InfluxDB-Telegraf
     type: influxdb
@@ -22,4 +22,4 @@ datasources:
     url: http://{{ groups['influxdb'][0] }}:{{ influxdb_port }}
     isDefault: False
     database: telegraf
-#    uid: telegraf
+    uid: telegraf

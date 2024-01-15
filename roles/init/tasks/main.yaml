@@ -1,39 +1,39 @@
-#- name: Ansible ping module
-#  ansible.builtin.ping:
+
 - name: Update APT cache
   ansible.builtin.apt:
     cache_valid_time: 86400
 
-- name: Exporter packages
+- name: Install Prometheus node_exporter
   apt:
-    name: 
-      - prometheus-node-exporter
-      - nginx
+    name: prometheus-node-exporter
+    state: present
 
-- name: Install certificates
-  ansible.builtin.apt:
-    name: ca-certificates
-    
-- name: Add Telegraf rsyslog conf file
+- name: Start node exporter
+  ansible.builtin.service:
+    name: prometheus-node-exporter
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Ensure up-to-date CA certificates are installed
+  apt:
+    name: ca-certificates=20230311ubuntu0.20.04.1
+    state: present
+
+- name: Copy rsyslog config
   ansible.builtin.template:
-    dest: /etc/rsyslog.d/15-telegraf.conf
-    src: 15-telegraf.conf
-  notify: restart rsyslog
+    src: telegraf.conf.j2
+    dest: /etc/rsyslog.d/telegraf.conf
+  notify:
+    - Restart rsyslog
 
-- name: Add the user 'backup' with a specific uid and a primary group of 'admin'
+- name: Add the user 'backup'
   ansible.builtin.user:
     name: backup
     comment: backup
-    create_home: true
-    group: backup
+    shell: /bin/bash
     home: /home/backup
-    
-- name: Create a 2048-bit SSH key for user backup
-  ansible.builtin.user:
-    name: backup
     generate_ssh_key: yes
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
     
 - name: Template a file to /home/backup/.ssh/known_hosts
   ansible.builtin.template:
@@ -41,26 +41,25 @@
     dest: /home/backup/.ssh/known_hosts
     owner: backup
     group: backup
-    mode: 0755
-    
-- name: Ensure path to mysql backup exists
-  ansible.builtin.file:
-    path: /home/{{ backup_user }}/influxdb
-    owner: "{{ backup_user }}"
-    group: "{{ backup_user }}"
-    mode: '0755'
-    state: directory 
+    mode: 0644
 
-- name: Ensure path to backup restore exists
+- name: Ensure restoration directory exists
   ansible.builtin.file:
-    path: /home/{{ backup_user }}/restore
-    owner: "{{ backup_user }}"
-    group: "{{ backup_user }}"
-    mode: '0755'
-    state: directory 
-    
+    path: /home/backup/restore
+    state: directory
+    owner: backup
+    group: backup
+    mode: '0750'
+  become: yes
+
 - name: Install Duplicity
-  ansible.builtin.apt:
+  apt:
     name: duplicity
-    
-   
+    state: present
+  become: yes
+
+- name: Update resolv.conf
+  ansible.builtin.template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+  when: "'dns_servers' not in group_names"

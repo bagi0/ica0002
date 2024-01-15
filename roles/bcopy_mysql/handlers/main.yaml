@@ -1,15 +1,14 @@
-- name: Restart mysql
+- name: restart mysql
   service:
     name: mysql
     state: restarted
-    enabled: yes
+  become: yes
 
-- name: Restart MySQL exporter
+- name: Restart MySQL Exporter
   service:
     name: prometheus-mysqld-exporter
     state: restarted
-    enabled: yes
-
+    
 - name: Reset MySQL source
   community.mysql.mysql_replication:
     mode: "{{ item }}"
@@ -22,13 +21,13 @@
 - name: Reset MySQL replica
   community.mysql.mysql_replication:
     mode: "{{ item }}"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-    primary_host: "{{mysql_host}}"
+    primary_host: "{{ mysql_host }}"
     primary_user: replication
-    primary_password: "{{replication_password}}"
+    primary_password: "{{ mysql_replication_password }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
   loop:
     - stopreplica
     - changeprimary
-    - resetreplica
+    - resetprimary
     - startreplica
   when: inventory_hostname != mysql_host

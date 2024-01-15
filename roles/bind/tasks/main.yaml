@@ -29,6 +29,12 @@
       dest: /etc/bind/named.conf.options
     notify: Restart bind
   
+  - name: Disable systemd-resolved
+    service:
+      name: systemd-resolved
+      state: stopped
+      enabled: no
+    
   - name: Configure local.j2
     template:
       src: templates/named.conf.local.j2
@@ -38,7 +44,7 @@
   - name: Configure rabagh.io.j2
     template:
       src: templates/db.rabagh.j2
-      dest: /var/lib/bind/db.rabagh.io
+      dest: /var/cache/bind/db.rabagh.io
     notify: Reload rndc
 
   - name: Copy resolv.conf
@@ -53,8 +59,6 @@
     ansible.builtin.template:
       src: prometheus-bind-exporter
       dest: /etc/default/prometheus-bind-exporter
-    notify:
-      - restart prometheus-bind-exporter
 
   - name: Ensure bind_exporters is always started please
     ansible.builtin.service:
@@ -66,8 +70,3 @@
     ansible.builtin.service:
      name: prometheus-bind-exporter
      state: restarted
-    
-    
-    
-    
-   

@@ -1,0 +1,129 @@
+- name: Install mysql server
+  apt:
+    name: mysql-server
+
+- name: Pymsql installing
+  apt:
+    name: python3-pymysql
+    
+- name: Install MySQL Exporter
+  apt:
+    name: prometheus-mysqld-exporter
+
+- name: MySQL Exporter Config
+  template:
+    src: my.cnf.j2 
+    dest: /var/lib/prometheus/.my.cnf
+    owner: prometheus
+    group: prometheus
+    mode: 0644
+  notify: Restart MySQL Exporter
+  no_log: True
+  
+- name: mysql config is fetched and mysql server is restarted
+  template:
+    src: override.cnf
+    dest: /etc/mysql/mysql.conf.d/override.cnf
+    mode: 0644
+  notify: restart mysql
+
+- name: MySQL database fethced
+  mysql_db:
+    name: "{{ mysql_database }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock 
+  no_log: True 
+
+- name: Creating mysql database user 
+  mysql_user:
+    name: "{{ mysql_user }}"
+    host: "%"
+    password: "{{ mysql_password }}"
+    priv: '{{ mysql_database }}.*:ALL'
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    
+- name: Enable MySQL Exporter
+  service:
+    name: prometheus-mysqld-exporter
+    state: started
+    enabled: true 
+    
+- name: Upload prometheus-mysqld-exporter configuration
+  ansible.builtin.template:
+    src: prometheus-mysqld-exporter 
+    dest: /etc/default/prometheus-mysqld-exporter 
+  notify: Restart MySQL Exporter 
+  no_log: yes
+
+- name: MySQL user for backup
+  community.mysql.mysql_user:
+    name: "{{ backup_user }}"
+    password: "{{ mysql_backup_password }}"
+    host: "%"
+    priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create MySQL replication user
+  community.mysql.mysql_user:
+    name: replication
+    password: "{{ mysql_replication_password }}"
+    host: "%"
+    priv: "*.*:REPLICATION SLAVE,REPLICATION CLIENT"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+  
+- name: Upload backup-mysql configuration
+  ansible.builtin.template:
+    src: .my.cnf
+    dest: /home/{{ backup_user }}/.my.cnf
+  no_log: yes
+
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: /home/{{ backup_user }}/.my.cnf
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: '0400'
+ 
+- name: Upload cron backup-mysql
+  ansible.builtin.template:
+    src: mysql-backup
+    dest: /etc/cron.d/mysql-backup
+  no_log: yes
+
+- name: Add read only mode to secondary mysql server    
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
+
+- name: Create or remove MySQL dump and upload cron jobs based on host role
+  ansible.builtin.cron:
+    name: "{{ item.name }}"
+    minute: "{{ item.minute }}"
+    hour: "{{ item.hour }}"
+    weekday: "{{ item.weekday }}"
+    job: "{{ item.job }}"
+    user: backup
+    cron_file: mysql-backup
+    state: "{{ 'present' if inventory_hostname == mysql_backup_host else 'absent' }}"
+  loop:
+    - name: "agama db backup"
+      minute: "30"
+      hour: "16"   # 18:30 EE
+      weekday: "*" # Every day of the week
+      job: "mysqldump agama > /home/backup/mysql/agama.sql"
+    - name: "duplicity full"
+      minute: "45" # Run 15 minutes later to ensure dump is complete
+      hour: "16"   # 18:45 EE
+      weekday: "6" # Only on Saturday
+      job: "duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.{{ fqdn }}/mysql"
+    - name: "duplicity increment"
+      minute: "45"
+      hour: "16"   # 18:45 EE
+      weekday: "0-5" # Every day except Saturday
+      job: "duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.{{ fqdn }}/mysql"

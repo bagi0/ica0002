@@ -1,15 +1,10 @@
----
+- name: Reload rndc
+  command:
+    cmd: rndc reload
+  become: yes
 
-  - name: Restart bind
-    ansible.builtin.service:
-      name: bind9
-      state: restarted
-      enabled: yes
-      
-  - name: Reload rndc
-    shell: rndc reload
-    
-  - name: restart prometheus-bind-exporter
-    ansible.builtin.service:
-      name: prometheus-bind-exporter
-      state: restarted
+- name: Restart bind
+  ansible.builtin.service:
+    name: bind9
+    state: restarted
+    enabled: yes
