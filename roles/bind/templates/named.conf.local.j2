@@ -1,4 +1,31 @@
 zone "{{ fqdn }}" {
-  type master;
-  file "/var/lib/bind/db.{{ fqdn }}";
+    {% if inventory_hostname in groups['dns_primary'] %}
+    type master;
+    file "db.{{ fqdn }}";
+    allow-transfer { key transfer.key; };
+    allow-update { key nsupdate.key; };
+    {% else %}
+    type slave;
+    masters { {{ hostvars[groups['dns_primary'][0]]['ansible_default_ipv4']['address'] }}; };
+    file "db.{{ fqdn }}";
+    {% endif %}
 };
+
+zone "168.192.in-addr.arpa" {
+    {% if inventory_hostname in groups['dns_primary'] %}
+    type master;
+    file "rev.db";
+    allow-transfer { key transfer.key; };
+    allow-update { key nsupdate.key; };
+    {% else %}
+    type slave;
+    masters { {{ hostvars[groups['dns_primary'][0]]['ansible_default_ipv4']['address'] }}; };
+    file "rev.db";
+    {% endif %}
+};
+
+{% if inventory_hostname in groups['dns_secondary'] %}
+server {{ hostvars[groups['dns_primary'][0]]['ansible_default_ipv4']['address'] }} {
+    keys { transfer.key; };
+};
+{% endif %}

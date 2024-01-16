@@ -123,6 +123,7 @@
       password: "{{ replication_password }}"
       priv: "*.*:REPLICATION SLAVE"
       login_unix_socket: /var/run/mysqld/mysqld.sock
+      host: "%"
 
   - name: read only mode for replica server, and remove it from source server
     community.mysql.mysql_variables:

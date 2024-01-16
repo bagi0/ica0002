@@ -58,8 +58,8 @@
     state: present
   become: yes
 
-- name: Update resolv.conf
-  ansible.builtin.template:
-    src: resolv.conf.j2
-    dest: /etc/resolv.conf
-  when: "'dns_servers' not in group_names"
+#- name: Update resolv.conf
+#  ansible.builtin.template:
+#    src: resolv.conf.j2
+#    dest: /etc/resolv.conf
+#  when: "'dns_servers' not in group_names"

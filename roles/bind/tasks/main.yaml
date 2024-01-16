@@ -39,13 +39,28 @@
     template:
       src: templates/named.conf.local.j2
       dest: /etc/bind/named.conf.local     
-    notify: Restart bind
-    
+    notify: 
+      - Restart bind
+      - Reload rndc
   - name: Configure rabagh.io.j2
     template:
       src: templates/db.rabagh.j2
       dest: /var/cache/bind/db.rabagh.io
-    notify: Reload rndc
+      force: no
+    notify: 
+      - Restart bind
+      - Reload rndc
+    when: inventory_hostname in groups ['dns_primary']
+
+  - name: Configure db.rev.j2
+    template:
+      src: db.rev.j2
+      dest: /var/cache/bind/rev.db
+      force: no
+    notify: 
+      - Restart bind
+      - Reload rndc
+    when: inventory_hostname in groups ['dns_primary']
 
   - name: Copy resolv.conf
     template:
@@ -53,7 +68,7 @@
       dest: /etc/resolv.conf
     notify: 
         - Restart bind 
-        - Reload rndc
+        - Restart rndc
         
   - name: Upload prometheus bind exporter var conf
     ansible.builtin.template:
@@ -65,8 +80,30 @@
       name: prometheus-bind-exporter
       enabled: yes
       state: started
+     
+  - name: Create A records
+    community.general.nsupdate:
+      key_name: "nsupdate.key"
+      key_algorithm: "hmac-sha256"
+      key_secret: "{{ dns_nsupdate_key}}"
+      server: "{{ hostvars[groups['dns_primary'][0]]['ansible_default_ipv4']['address'] }}"
+      zone: "{{ fqdn }}."
+      record: "{{ item['subdomain'] }}.{{ fqdn }}."
+      type: "A"
+      value: "{{ item['ip'] }}"
+    loop: "{{ a_records }}"
+    when: inventory_hostname in groups ['dns_primary']
 
-  - name: restart prometheus-bind-exporter
-    ansible.builtin.service:
-     name: prometheus-bind-exporter
-     state: restarted
+  - name: Create CNAME records
+    community.general.nsupdate:
+      key_name: "nsupdate.key"
+      key_algorithm: "hmac-sha256"
+      key_secret: "{{ dns_nsupdate_key }}"
+      server: "{{ hostvars[groups['dns_primary'][0]]['ansible_default_ipv4']['address'] }}"
+      zone: "{{ fqdn }}"
+      record: "{{ item.key }}"
+      type: "CNAME"
+      value: "{{ item.value }}"
+    loop: "{{ dns_cname_records | dict2items }}"
+    when: inventory_hostname in groups ['dns_primary']
+

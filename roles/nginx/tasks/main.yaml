@@ -1,32 +1,37 @@
-- name: NGINX is working and installed properly
-  apt: 
-    name: nginx  
-    
-- name: prometheus-nginx-exporter
-  ansible.builtin.apt:
-    name: prometheus-nginx-exporter
-    state: latest
-    
-- name: source default to destionation sites/enabled
-  template:
-    src: exporter
-    dest: /etc/nginx/sites-enabled/exporter
-  notify: restart nginx exporter
-  
-- name: source default to destionation sites/enabled
-  template:
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Copy default to Sites-enabled
+  ansible.builtin.template:
     src: default.j2
     dest: /etc/nginx/sites-enabled/default
   notify: restart nginx
-  
-- name: Enable exporter service
-  service:
-   name: prometheus-nginx-exporter
-   state: started
-   enabled: yes
+  no_log: true
 
-- name: start nginx service
-  service:
+- name: Ensure Nginx service is started and enabled at boot
+  ansible.builtin.service:
     name: nginx
-    state: started 
+    state: started
+    enabled: true
+
+- name: Install Nginx exporter
+  apt:
+    name: prometheus-nginx-exporter
+    state: present
+  become: yes
+
+- name: Start and enable nginx exporter
+  ansible.builtin.service:
+    name: prometheus-nginx-exporter
+    state: started
     enabled: yes
+  become: yes
+
+- name: Upload prometheus-nginx-exporter configuration
+  ansible.builtin.template:
+    src: prometheus-nginx-exporter 
+    dest: /etc/default/prometheus-nginx-exporter 
+  notify: restart prometheus-nginx-exporter 
+  no_log: yes
