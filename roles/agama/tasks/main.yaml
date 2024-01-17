@@ -18,40 +18,6 @@
     build:
       path: /opt/agama
 
-#- name: Start Agama container
-#  docker_container:
-#    name: agama
-#    image: agama
-#    restart_policy: always
-#    published_ports:
-#      - "{{ agama_port }}:8000"
-#    env:
-#      AGAMA_DATABASE_URI: "mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}"
-
-#- name: Start Agama container
-#  docker_container:
-#    name: agama2
-#    image: agama
-#    restart_policy: always
-#    published_ports:
-#      - "{{ agama_port_2 }}:8000"
-#    env:
-#      AGAMA_DATABASE_URI: "mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}"
-      
-#- name: Run agama docker container
-#  community.docker.docker_container:
-#    container_default_behavior: no_defaults
-#    name: "agama{{ item }}"
-#    image: agama
-#    published_ports: "{{ agama_port + item }}:{{ agama_port1 }}"
-#    env:
-#      AGAMA_DATABASE_URI: mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{mysql_host}}/{{mysql_database}}
-#    restart_policy: always
-#    dns_search_domains: "{{ fqdn }}"
-#  with_items:
-#    - "{{ range(1, agama_containers + 1) | list }}"
-#  no_log: false
-
 - name: Run agama docker container
   community.docker.docker_container:
     container_default_behavior: no_defaults

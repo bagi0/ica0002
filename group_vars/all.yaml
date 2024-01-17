@@ -1,5 +1,5 @@
-mysql_host: bagi0-1
-mysql_backup_host: bagi0-2
+mysql_host: mysql1
+mysql_backup_host: mysql2
 mysql_database: agama
 mysql_user: agama 
 mysql_password: !vault |
@@ -66,18 +66,12 @@ dns_nsupdate_key: !vault |
           62346231623063643034326238333331663864313231373562333061336332346532363139343565
           3738343265333064663231303931363961336335363965333631
 
-
-
 dns_forwarders:
   - 8.8.8.8
   - 1.1.1.1
   - 9.9.9.9
   - 9.9.9.10
 
-a_records:
-  - subdomain: backup
-    ip:  192.168.42.132
-    
     
 local_network: 192.168.42.0/23
 localhost: 127.0.0.0/8  
@@ -86,29 +80,17 @@ localhost_address: 127.0.0.1
 vm1_ip: 192.168.43.{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}
 vm2_ip: 192.168.43.{{ hostvars['bagi0-2']['ansible_default_ipv4']['address'].split('.')[3] }}
 
-vm1_port_number : "{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}80"
-vm2_port_number : "{{ hostvars['bagi0-2']['ansible_default_ipv4']['address'].split('.')[3] }}80"
 
 node_id: "{{ (ansible_port / 100) | int }}"
 
 domain: rabagh
 fqdn: rabagh.io
 
-dns_record:
- - name: bagi0
-   type: A
-   ipaddress: 192.168.43.{{ hostvars['bagi0-2']['ansible_default_ipv4']['address'].split('.')[3] }}
- - name: bagi0
-   type: A
-   ipaddress: 192.168.43{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}
-   
-   
+
 backup_server_ip: 192.168.42.132
 backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
 
-
 reverse_domain: 168.192.in-addr.arpa
-
 
 docker_agama_port1: 8003
 docker_agama_port2: 8004
@@ -116,22 +98,24 @@ agama_port: 8000
 agama_port1: 8000
 agama_containers: 2
 docker_network: 172.17.0.0/16
-agama_port_2: 8002
-agama_container_range: 4
 
 
 # Jobs for prometheus
 
-url_port: 33380
 grafana_port: 3001
 prometheus_port: 9090
 influxdb_port: 8086
 
-node_exporter_port: 9100
+# Haproxy
+haproxy_port: 88
+haproxy_stats_port: 9188
+haproxy_stats_uri: monitor
+
+linux_exporter_port: 9100
 bind_exporter_port: 9119
 mysql_exporter_port: 9104
 nginx_exporter_port: 9113
-influxdb_exporter_port: 9324
+influxdb_exporter_port: 9424
 haproxy_exporter_port: 9101
 keepalived_exporter_port: 9165
 
@@ -159,33 +143,27 @@ prometheus_exporters:
     port: 9165
 
 
-# Haproxy
-haproxy_port: 88
-haproxy_stats_port: 9188
-haproxy_stats_uri: monitor
-
-
 prometheus_jobs:
   - name: linux
-    target_port: 9100
+    target_port: "{{ linux_exporter_port }}"
     target_group: all
   - name: bind9
-    target_port: 9119
+    target_port: "{{ bind_exporter_port }}"
     target_group: dns_servers
   - name: mysql
-    target_port: 9104
+    target_port: "{{ mysql_exporter_port }}"
     target_group: db_servers
   - name: nginx
-    target_port: 9113
+    target_port: "{{ nginx_exporter_port }}"
     target_group: all
   - name: influxdb
-    target_port: 9424
+    target_port: "{{ influxdb_exporter_port }}"
     target_group: prometheus
   - name: haproxy
-    target_port: 9101
+    target_port: "{{ haproxy_exporter_port }}"
     target_group: haproxy
   - name: keepalived
-    target_port: 9165
+    target_port: "{{ keepalived_exporter_port }}"
     target_group: haproxy
 
 pinger_pings:
@@ -194,16 +172,31 @@ pinger_pings:
   -  twitter.com
   -  facebook.com
   
-dns_cname_records:
+dns_grafana_records:
   grafana: "{{ groups['grafana'][0] }}"
+  
+dns_a_records:
+  backup: "{{ backup_server_ip }}"
+
+dns_influx_records:
   influxdb: "{{ groups['influxdb'][0] }}"
+
+dns_haproxy_records:
   lb1: "{{ groups['haproxy'][0] }}"
   lb2: "{{ groups['haproxy'][1] }}"
+
+dns_mysql_records:
   mysql1: "{{ groups['db_servers'][0] }}"
   mysql2: "{{ groups['db_servers'][1] }}"
+  
+dns_dns_records:
   ns1: "{{ groups['dns_servers'][0] }}"
   ns2: "{{ groups['dns_servers'][1] }}"
-  #ns3: "{{ groups['dns_servers'][2] }}"
+  ns3: "{{ groups['dns_servers'][2] }}"
+
+dns_prometheus_records:
   prometheus: "{{ groups['prometheus'][0] }}"
-  web1: "{{ groups['web_servers'][0] }}"
-#  web2: "{{ groups['web_servers'][1] }}"
+
+dns_nginx_records:  
+  www-1: "{{ groups['web_servers'][0] }}"
+  www-2: "{{ groups['web_servers'][1] }}"
