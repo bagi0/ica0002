@@ -10,8 +10,9 @@
   template:
     dest: /opt/grafana/grafana.ini
     src: grafana.ini.j2
-    mode: '0644' 
+    mode: '0640' 
   notify: restart grafana
+  become
   no_log: yes
 
 - name: Template files
@@ -23,7 +24,6 @@
     - { directory: 'dashboards', file: 'default.yaml', srcfile: 'dashboards.yaml.j2' }
     - { directory: 'datasources', file: 'default.yaml', srcfile: 'datasources.yaml' }
   notify: restart grafana
-
 
 - name: Copy files
   copy:
