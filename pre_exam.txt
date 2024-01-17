@@ -1,541 +1,1341 @@
-Wed Jan 17 12:18:43 PM EET 2024
+Wed Jan 15 12:18:43 PM EET 2024
 + hostname
 kali
 + ansible-playbook infra.yaml --diff
 
-PLAY [Init] ********************************************************************
+PLAY [Initial setup] ***********************************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [bagi0-2]
 ok: [bagi0-1]
 ok: [bagi0-3]
-ok: [bagi0-2]
 
 TASK [init : Update APT cache] *************************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
 ok: [bagi0-2]
+ok: [bagi0-3]
+changed: [bagi0-1]
 
 TASK [init : Install Prometheus node_exporter] *********************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
+  smartmontools
+0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
+changed: [bagi0-1]
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
+  smartmontools
+0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
+changed: [bagi0-3]
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl libtimedate-perl
+  moreutils prometheus-node-exporter prometheus-node-exporter-collectors
+  smartmontools
+0 upgraded, 8 newly installed, 0 to remove and 265 not upgraded.
+changed: [bagi0-2]
 
 TASK [init : Start node exporter] **********************************************
+ok: [bagi0-2]
 ok: [bagi0-3]
 ok: [bagi0-1]
-ok: [bagi0-2]
 
 TASK [init : Ensure up-to-date CA certificates are installed] ******************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
+The following packages will be upgraded:
+  ca-certificates
+Preconfiguring packages ...
+1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
+changed: [bagi0-3]
+The following packages will be upgraded:
+  ca-certificates
+Preconfiguring packages ...
+1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
+changed: [bagi0-2]
+The following packages will be upgraded:
+  ca-certificates
+1 upgraded, 0 newly installed, 0 to remove and 264 not upgraded.
+changed: [bagi0-1]
 
 TASK [init : Copy rsyslog config] **********************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-ok: [bagi0-3]
+changed: [bagi0-1]
+changed: [bagi0-2]
+changed: [bagi0-3]
 
 TASK [init : Add the user 'backup'] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
+changed: [bagi0-1]
+changed: [bagi0-2]
+changed: [bagi0-3]
 
 TASK [init : Template a file to /home/backup/.ssh/known_hosts] *****************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
+changed: [bagi0-1]
+changed: [bagi0-2]
+changed: [bagi0-3]
 
 TASK [init : Ensure restoration directory exists] ******************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-1]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-2]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-3]
 
 TASK [init : Install Duplicity] ************************************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 264 not upgraded.
+changed: [bagi0-3]
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 264 not upgraded.
+changed: [bagi0-2]
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 264 not upgraded.
+changed: [bagi0-1]
 
-PLAY [DNS server] **************************************************************
+RUNNING HANDLER [init : Restart rsyslog] ***************************************
+changed: [bagi0-3]
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+PLAY [DNS Server Setup] ********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [bind : Install bind] *****************************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [bind : Start service bind9, if not started] ******************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [bind : Bind9 exporter] ***************************************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [bind : Start Bind9 exporter] *********************************************
 ok: [bagi0-3]
 ok: [bagi0-2]
 ok: [bagi0-1]
 
-TASK [bind : Configure options.j2] *********************************************
+TASK [bind : Install Bind9] ****************************************************
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-dnspython python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 5 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-3]
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-dnspython python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 5 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-dnspython python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 5 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+
+TASK [bind : Ensure Bind9 is running and enabled] ******************************
 ok: [bagi0-1]
 ok: [bagi0-3]
 ok: [bagi0-2]
+
+TASK [bind : Upload Bind9 main configuration] **********************************
+changed: [bagi0-2]
+changed: [bagi0-3]
+changed: [bagi0-1]
+
+TASK [bind : Upload Bind9 local configuration for primary] *********************
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+changed: [bagi0-3]
+
+TASK [bind : Upload primary zone database configuration if not exists] *********
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+changed: [bagi0-3]
+
+TASK [bind : Upload reverse zone database configuration for primary] ***********
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+changed: [bagi0-3]
+
+TASK [bind : Upload Bind9 local configuration for secondary] *******************
+skipping: [bagi0-3]
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [bind : Ensure directory for secondary zone files exists] *****************
+skipping: [bagi0-3]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 120,
++    "mode": "0775",
++    "owner": 113,
+     "path": "/var/cache/bind/slaves",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-2]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 120,
++    "mode": "0775",
++    "owner": 113,
+     "path": "/var/cache/bind/slaves",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-1]
+
+TASK [bind : Configure /etc/resolv.conf] ***************************************
+--- before: /etc/resolv.conf
++++ after: /Users/tester/.ansible/tmp/ansible-local-98321ckt8i42h/tmpqwe5rxyz/resolv.conf.j2
+@@ -1,19 +1,3 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
+-
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++search rabagh.io
++nameserver 192.168.43.69
++nameserver 192.168.43.152
+
+changed: [bagi0-3]
+--- before: /etc/resolv.conf
++++ after: /Users/tester/.ansible/tmp/ansible-local-98321ckt8i42h/tmpqwe5rxyz/resolv.conf.j2
+@@ -1,19 +1,3 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
+-
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++search rabagh.io
++nameserver 192.168.43.69
++nameserver 192.168.43.152
+
+changed: [bagi0-1]
+--- before: /etc/resolv.conf
++++ after: /Users/tester/.ansible/tmp/ansible-local-98321ckt8i42h/tmpqwe5rxyz/resolv.conf.j2
+@@ -1,19 +1,3 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
+-
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
++search rabagh.io
++nameserver 192.168.43.69
++nameserver 192.168.43.152
+
+changed: [bagi0-2]
+
+TASK [bind : Ensure proper permissions on BIND directories and files] **********
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "02755",
++    "mode": "0755",
+     "path": "/etc/bind"
+ }
+
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "02755",
++    "mode": "0755",
+     "path": "/etc/bind"
+ }
+
+changed: [bagi0-1] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "02755",
++    "mode": "0755",
+     "path": "/etc/bind"
+ }
+
+changed: [bagi0-3] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+changed: [bagi0-2] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "owner": 0,
++    "owner": 113,
+     "path": "/var/cache/bind"
+ }
+
+changed: [bagi0-1] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "owner": 0,
++    "owner": 113,
+     "path": "/var/cache/bind"
+ }
+
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "owner": 0,
++    "owner": 113,
+     "path": "/var/cache/bind"
+ }
+
+changed: [bagi0-3] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
+changed: [bagi0-2] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
 
 TASK [bind : Disable systemd-resolved] *****************************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+changed: [bagi0-3]
+
+TASK [bind : Install Bind9 exporter] *******************************************
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-3]
+
+TASK [bind : Start Bind exporter] **********************************************
+ok: [bagi0-2]
 ok: [bagi0-3]
 ok: [bagi0-1]
-ok: [bagi0-2]
 
-TASK [bind : Configure local.j2] ***********************************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
+TASK [bind : Restart bind and reload rndc] *************************************
 
-TASK [bind : Configure rabagh.io.j2] *******************************************
-skipping: [bagi0-1]
-skipping: [bagi0-2]
-ok: [bagi0-3]
+RUNNING HANDLER [bind : Restart bind] ******************************************
+changed: [bagi0-2]
+changed: [bagi0-3]
+changed: [bagi0-1]
 
-TASK [bind : Configure db.rev.j2] **********************************************
-skipping: [bagi0-1]
-skipping: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [bind : Upload prometheus bind exporter var conf] *************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [bind : Ensure bind_exporters is always started please] *******************
-ok: [bagi0-3]
-ok: [bagi0-2]
-ok: [bagi0-1]
+RUNNING HANDLER [bind : Restart rndc] ******************************************
+changed: [bagi0-3]
+changed: [bagi0-2]
+changed: [bagi0-1]
 
 TASK [bind : Add A server records] *********************************************
 skipping: [bagi0-1] => (item={'key': 'backup', 'value': '192.168.42.132'}) 
 skipping: [bagi0-2] => (item={'key': 'backup', 'value': '192.168.42.132'}) 
-ok: [bagi0-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
+changed: [bagi0-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
 
 TASK [bind : Add DNS CNAME records] ********************************************
-skipping: [bagi0-1] => (item={'key': 'ns1', 'value': 'bagi0-3'}) 
-skipping: [bagi0-1] => (item={'key': 'ns2', 'value': 'bagi0-1'}) 
-skipping: [bagi0-1] => (item={'key': 'ns3', 'value': 'bagi0-2'}) 
-skipping: [bagi0-2] => (item={'key': 'ns1', 'value': 'bagi0-3'}) 
-skipping: [bagi0-2] => (item={'key': 'ns2', 'value': 'bagi0-1'}) 
-skipping: [bagi0-2] => (item={'key': 'ns3', 'value': 'bagi0-2'}) 
-ok: [bagi0-3] => (item={'key': 'ns1', 'value': 'bagi0-3'})
-ok: [bagi0-3] => (item={'key': 'ns2', 'value': 'bagi0-1'})
-ok: [bagi0-3] => (item={'key': 'ns3', 'value': 'bagi0-2'})
+skipping: [bagi0-1] => (item={'key': 'ns1', 'value': 'bagi0-1'}) 
+skipping: [bagi0-1] => (item={'key': 'ns2', 'value': 'bagi0-2'}) 
+skipping: [bagi0-1] => (item={'key': 'ns3', 'value': 'bagi0-3'}) 
+skipping: [bagi0-2] => (item={'key': 'ns1', 'value': 'bagi0-1'}) 
+skipping: [bagi0-2] => (item={'key': 'ns2', 'value': 'bagi0-2'}) 
+skipping: [bagi0-2] => (item={'key': 'ns3', 'value': 'bagi0-3'}) 
+changed: [bagi0-3] => (item={'key': 'ns1', 'value': 'bagi0-1'})
+changed: [bagi0-3] => (item={'key': 'ns2', 'value': 'bagi0-2'})
+changed: [bagi0-3] => (item={'key': 'ns3', 'value': 'bagi0-3'})
 
-PLAY [DNS setup] ***************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [dns_setup : update DNS on  VM] *******************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [dns_setup : Stop systemd-resolved service] *******************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-PLAY [Docker setup] ************************************************************
+PLAY [Database server setup] ***************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-1]
-ok: [bagi0-3]
+ok: [bagi0-2]
+
+TASK [mysql : Install MySQL server] ********************************************
+The following additional packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 liburi-perl mecab-ipadic mecab-ipadic-utf8
+  mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common
+  mysql-server-8.0 mysql-server-core-8.0
+Suggested packages:
+  libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx tinyca
+The following NEW packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 liburi-perl mecab-ipadic mecab-ipadic-utf8
+  mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
+  mysql-server-8.0 mysql-server-core-8.0
+0 upgraded, 24 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
+The following additional packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 liburi-perl mecab-ipadic mecab-ipadic-utf8
+  mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common
+  mysql-server-8.0 mysql-server-core-8.0
+Suggested packages:
+  libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx tinyca
+The following NEW packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 liburi-perl mecab-ipadic mecab-ipadic-utf8
+  mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
+  mysql-server-8.0 mysql-server-core-8.0
+0 upgraded, 24 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+
+TASK [mysql : Configure MySQL with template] ***********************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [mysql : Ensure MySQL service is started and enabled on boot] *************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [mysql : Install PyMySQL library] *****************************************
+Suggested packages:
+  python-pymysql-doc
+The following NEW packages will be installed:
+  python3-pymysql
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+Suggested packages:
+  python-pymysql-doc
+The following NEW packages will be installed:
+  python3-pymysql
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
+
+TASK [mysql : Create MySQL database] *******************************************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+TASK [mysql : MySQL user] ******************************************************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+TASK [mysql : Install MySQL exporter] ******************************************
+The following additional packages will be installed:
+  daemon
+The following NEW packages will be installed:
+  daemon prometheus-mysqld-exporter
+0 upgraded, 2 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+The following additional packages will be installed:
+  daemon
+The following NEW packages will be installed:
+  daemon prometheus-mysqld-exporter
+0 upgraded, 2 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
+
+TASK [mysql : Create MySQL exporter user] **************************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [mysql : Create .my.cnf for MySQL exporter] *******************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [mysql : Upload prometheus-mysqld-exporter configuration] *****************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [mysql : Ensure MySQL backup directory exists and set correct permissions] ***
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/mysql",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-1]
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/mysql",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-2]
+
+TASK [mysql : Create MySQL backup user] ****************************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [mysql : Create MySQL client configuration for backup user] ***************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [mysql : Create MySQL replication user] ***********************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [mysql : Add read only mode to secondary mysql server] ********************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+TASK [mysql : Start and enable mysql exporter] *********************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [mysql : Create or remove MySQL dump and upload cron jobs based on host role] ***
+--- before: /etc/cron.d/mysql-backup
++++ after: /etc/cron.d/mysql-backup
+@@ -0,0 +1,2 @@
++#Ansible: agama db backup
++30 16 * * * backup mysqldump agama > /home/backup/mysql/agama.sql
+
+ok: [bagi0-1] => (item={'name': 'agama db backup', 'minute': '30', 'hour': '16', 'weekday': '*', 'job': 'mysqldump agama > /home/backup/mysql/agama.sql'})
+changed: [bagi0-2] => (item={'name': 'agama db backup', 'minute': '30', 'hour': '16', 'weekday': '*', 'job': 'mysqldump agama > /home/backup/mysql/agama.sql'})
+--- before: /etc/cron.d/mysql-backup
++++ after: /etc/cron.d/mysql-backup
+@@ -1,2 +1,4 @@
+ #Ansible: agama db backup
+ 30 16 * * * backup mysqldump agama > /home/backup/mysql/agama.sql
++#Ansible: duplicity full
++45 16 * * 6 backup duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql
+
+changed: [bagi0-2] => (item={'name': 'duplicity full', 'minute': '45', 'hour': '16', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+ok: [bagi0-1] => (item={'name': 'duplicity full', 'minute': '45', 'hour': '16', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+--- before: /etc/cron.d/mysql-backup
++++ after: /etc/cron.d/mysql-backup
+@@ -2,3 +2,5 @@
+ 30 16 * * * backup mysqldump agama > /home/backup/mysql/agama.sql
+ #Ansible: duplicity full
+ 45 16 * * 6 backup duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql
++#Ansible: duplicity increment
++45 16 * * 0-5 backup duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql
+
+changed: [bagi0-2] => (item={'name': 'duplicity increment', 'minute': '45', 'hour': '16', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+ok: [bagi0-1] => (item={'name': 'duplicity increment', 'minute': '45', 'hour': '16', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+
+TASK [mysql : Add MySQL CNAME records] *****************************************
+changed: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql1', 'value': 'bagi0-1'})
+changed: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql1', 'value': 'bagi0-1'})
+ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql2', 'value': 'bagi0-2'})
+changed: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql2', 'value': 'bagi0-2'})
+
+RUNNING HANDLER [mysql : Restart MySQL] ****************************************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+RUNNING HANDLER [mysql : restart prometheus-mysqld-exporter] *******************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+RUNNING HANDLER [mysql : Reset MySQL source] ***********************************
+skipping: [bagi0-2] => (item=stopreplica) 
+skipping: [bagi0-2] => (item=resetprimary) 
+ok: [bagi0-1] => (item=stopreplica)
+changed: [bagi0-1] => (item=resetprimary)
+
+RUNNING HANDLER [mysql : Reset MySQL replica] **********************************
+skipping: [bagi0-1] => (item=stopreplica) 
+skipping: [bagi0-1] => (item=changeprimary) 
+skipping: [bagi0-1] => (item=resetprimary) 
+skipping: [bagi0-1] => (item=startreplica) 
+ok: [bagi0-2] => (item=stopreplica)
+changed: [bagi0-2] => (item=changeprimary)
+changed: [bagi0-2] => (item=resetprimary)
+changed: [bagi0-2] => (item=startreplica)
+
+PLAY [Deploy Web Servers] ******************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [docker : Install docker] *************************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
+  ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
+  python3-websocket runc ubuntu-fan
+0 upgraded, 10 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
+  ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
+  python3-websocket runc ubuntu-fan
+0 upgraded, 10 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
 
 TASK [docker : Docker is started] **********************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-PLAY [Database server] *********************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Install mysql-server] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Install Pymsql] **************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Copying and restarting mysql] ************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Start mysql] *****************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Create Database] *************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Create User] *****************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Install MySQL exporter and python3-pymysql] **********************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Create directory] ************************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [mysql : Configure MySQL exporter] ****************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Create MySQL exporter user] **************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Force all notified handlers] *************************************
-
-TASK [mysql : Start mysql exporter] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Make Backup owner of MySQL DIR] **********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : MySQL backup user] ***********************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [mysql : Make Backup Template] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Make cron backup] ************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Template mysql exporter replication metrics] *********************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [mysql : MySQL replication user] ******************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : read only mode for replica server, and remove it from source server] ***
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Add MySQL CNAME records] *****************************************
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql1', 'value': 'bagi0-1'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql1', 'value': 'bagi0-1'})
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql2', 'value': 'bagi0-2'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql2', 'value': 'bagi0-2'})
-
-PLAY [Web server] **************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [nginx : Install nginx] ***************************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [nginx : Copy default to Sites-enabled] ***********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [nginx : Install Nginx exporter] ******************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [nginx : Start and enable nginx exporter] *********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [nginx : Add www CNAME records] *******************************************
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-3] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-ok: [bagi0-3] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-
-PLAY [Agama] *******************************************************************
-
-TASK [Gathering Facts] *********************************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [agama : Create /opt/agama directory] *************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/agama",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-2]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/agama",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-1]
 
 TASK [agama : Download Dockerfile and agama.py] ********************************
-ok: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
-ok: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
-ok: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
-ok: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
+changed: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
+changed: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
+changed: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
+changed: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
 
 TASK [agama : Build Docker image for Agama] ************************************
-ok: [bagi0-1]
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [agama : Start Agama container] *******************************************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+TASK [agama : Start Agama container] *******************************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [nginx : Install nginx] ***************************************************
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common nginx-core
+Suggested packages:
+  libgd-tools fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx nginx-common nginx-core
+0 upgraded, 17 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common nginx-core
+Suggested packages:
+  libgd-tools fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx nginx-common nginx-core
+0 upgraded, 17 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+
+TASK [nginx : Copy default to Sites-enabled] ***********************************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
 ok: [bagi0-2]
+ok: [bagi0-1]
 
-TASK [agama : Run agama docker container] **************************************
-ok: [bagi0-2] => (item=1)
-ok: [bagi0-1] => (item=1)
-ok: [bagi0-1] => (item=2)
-ok: [bagi0-2] => (item=2)
+TASK [nginx : Install Nginx exporter] ******************************************
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
 
-PLAY [Configure Prometheus] ****************************************************
+TASK [nginx : Start and enable nginx exporter] *********************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+TASK [nginx : Add www CNAME records] *******************************************
+changed: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+changed: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+changed: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
+changed: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
+
+RUNNING HANDLER [nginx : restart nginx] ****************************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+RUNNING HANDLER [nginx : restart prometheus-nginx-exporter] ********************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+PLAY [Monitoring Server Setup] *************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-3]
 
 TASK [prometheus : Install Prometheus] *****************************************
-ok: [bagi0-3]
+The following additional packages will be installed:
+  fonts-glyphicons-halflings javascript-common libc-ares2 libjs-bootstrap
+  libjs-bootstrap4 libjs-d3 libjs-eonasdan-bootstrap-datetimepicker
+  libjs-jquery libjs-jquery-hotkeys libjs-moment libjs-moment-timezone
+  libjs-mustache libjs-popper.js libjs-rickshaw libnode64 node-jquery nodejs
+  nodejs-doc
+Suggested packages:
+  apache2 | lighttpd | httpd npm
+The following NEW packages will be installed:
+  fonts-glyphicons-halflings javascript-common libc-ares2 libjs-bootstrap
+  libjs-bootstrap4 libjs-d3 libjs-eonasdan-bootstrap-datetimepicker
+  libjs-jquery libjs-jquery-hotkeys libjs-moment libjs-moment-timezone
+  libjs-mustache libjs-popper.js libjs-rickshaw libnode64 node-jquery nodejs
+  nodejs-doc prometheus
+0 upgraded, 19 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-3]
 
-TASK [prometheus : Prometheus args] ********************************************
-ok: [bagi0-3]
+TASK [prometheus : Add prometheus ARGS] ****************************************
+changed: [bagi0-3]
 
-TASK [prometheus : Change prometheus.yml] **************************************
-ok: [bagi0-3]
+TASK [prometheus : Add prometheus yml] *****************************************
+changed: [bagi0-3]
 
-TASK [prometheus : Enable Prometheus] ******************************************
+TASK [prometheus : Start and enable prometheus] ********************************
 ok: [bagi0-3]
 
 TASK [prometheus : Add Prometheus CNAME records] *******************************
-ok: [bagi0-3] => (item={'key': 'prometheus', 'value': 'bagi0-3'})
+changed: [bagi0-3] => (item={'key': 'prometheus', 'value': 'bagi0-3'})
 
-PLAY [Grafana] *****************************************************************
+TASK [docker : Install docker] *************************************************
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz python3-websocket runc
+  ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz python3-docker
+  python3-websocket runc ubuntu-fan
+0 upgraded, 10 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-3]
 
-TASK [Gathering Facts] *********************************************************
+TASK [docker : Docker is started] **********************************************
 ok: [bagi0-3]
 
-TASK [grafana : Provisioning config - Create directories] **********************
-ok: [bagi0-3] => (item={'directory': 'dashboards'})
-ok: [bagi0-3] => (item={'directory': 'datasources'})
+TASK [grafana : Create Grafana directories for provisioning] *******************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/grafana/provisioning/dashboards",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [grafana : Template grafana.ini] ******************************************
-ok: [bagi0-3]
+changed: [bagi0-3] => (item=/opt/grafana/provisioning/dashboards)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/grafana/provisioning/datasources",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [grafana : Template files] ************************************************
-ok: [bagi0-3] => (item={'directory': 'dashboards', 'file': 'default.yaml', 'srcfile': 'dashboards.yaml.j2'})
-ok: [bagi0-3] => (item={'directory': 'datasources', 'file': 'default.yaml', 'srcfile': 'datasources.yaml'})
+changed: [bagi0-3] => (item=/opt/grafana/provisioning/datasources)
 
-TASK [grafana : Copy files] ****************************************************
-ok: [bagi0-3] => (item=main.json)
-ok: [bagi0-3] => (item=mysql.json)
-ok: [bagi0-3] => (item=syslog.json)
+TASK [grafana : Configure Grafana settings] ************************************
+changed: [bagi0-3]
 
-TASK [grafana : Start Grafana in docker container] *****************************
-ok: [bagi0-3]
+TASK [grafana : Configure Grafana datasources] *********************************
+changed: [bagi0-3]
+
+TASK [grafana : Configure Grafana dashboard providers] *************************
+changed: [bagi0-3]
+
+TASK [grafana : Configure main dashboard] **************************************
+changed: [bagi0-3]
+
+TASK [grafana : Configure syslog dashboard] ************************************
+changed: [bagi0-3]
+
+TASK [grafana : Configure MySQL dashboard] *************************************
+changed: [bagi0-3]
+
+TASK [grafana : Pull Grafana Docker image] *************************************
+changed: [bagi0-3]
+
+TASK [grafana : Start Grafana container with proper volume mounts] *************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [bagi0-3]
 
 TASK [grafana : Add Grafana CNAME records] *************************************
-ok: [bagi0-3] => (item={'key': 'grafana', 'value': 'bagi0-3'})
-
-PLAY [Influxdb] ****************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-3]
+changed: [bagi0-3] => (item={'key': 'grafana', 'value': 'bagi0-3'})
 
 TASK [influxdb : Download influxdb] ********************************************
-ok: [bagi0-3]
+changed: [bagi0-3]
 
 TASK [influxdb : Install influxDB] *********************************************
-ok: [bagi0-3]
+Selecting previously unselected package influxdb.
+(Reading database ... 66144 files and directories currently installed.)
+Preparing to unpack /etc/influxdb_1.8.10_amd64.deb ...
+Unpacking influxdb (1.8.10-1) ...
+Setting up influxdb (1.8.10-1) ...
+Processing triggers for man-db (2.9.1-1) ...
+changed: [bagi0-3]
 
-TASK [influxdb : Add InfluxDB conf file] ***************************************
-ok: [bagi0-3]
+TASK [influxdb : Configure InfluxDB] *******************************************
+changed: [bagi0-3]
 
-TASK [influxdb : Ensure influxdb is always started please] *********************
-ok: [bagi0-3]
+TASK [influxdb : Start and enable InfluxDB] ************************************
+changed: [bagi0-3]
 
-TASK [influxdb : Add Telegraf Apt signing key] *********************************
-ok: [bagi0-3]
+TASK [influxdb : Add InfluxData repository key] ********************************
+changed: [bagi0-3]
 
-TASK [influxdb : Get Telegraf deb] *********************************************
-ok: [bagi0-3]
+TASK [influxdb : Add InfluxData repository] ************************************
+--- before: /dev/null
++++ after: /etc/apt/sources.list.d/repos_influxdata_com_ubuntu.list
+@@ -0,0 +1 @@
++deb https://repos.influxdata.com/ubuntu bionic stable
+
+changed: [bagi0-3]
 
 TASK [influxdb : Install Telegraf] *********************************************
-ok: [bagi0-3]
+The following NEW packages will be installed:
+  telegraf
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-3]
 
-TASK [influxdb : Add Telegraf conf file] ***************************************
-ok: [bagi0-3]
+TASK [influxdb : Configure Telegraf] *******************************************
+changed: [bagi0-3]
 
-TASK [influxdb : Ensure influxdb is always started please] *********************
-ok: [bagi0-3]
+TASK [influxdb : Start and enable Telegraf] ************************************
+changed: [bagi0-3]
 
-TASK [influxdb : Add Influxdb Exporter Service Binary file] ********************
-ok: [bagi0-3]
+TASK [influxdb : Download InfluxDB stats exporter] *****************************
+changed: [bagi0-3]
 
-TASK [influxdb : Change file ownership, group and permissions] *****************
-ok: [bagi0-3]
+TASK [influxdb : Copy influx exporter service file] ****************************
+changed: [bagi0-3]
 
-TASK [influxdb : Add Influxdb Exporter Service] ********************************
-ok: [bagi0-3]
+TASK [influxdb : Start and enable influx exporter] *****************************
+changed: [bagi0-3]
 
-TASK [influxdb : Execute systemd reload to enable influx exporter service] *****
-ok: [bagi0-3]
+TASK [influxdb : Ensure InfluxDB backup directory exists and set correct permissions] ***
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0750",
++    "owner": 34,
+     "path": "/home/backup/influxdb",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [influxdb : Start influx exporter uncodnitionally] ************************
-ok: [bagi0-3]
+changed: [bagi0-3]
 
-TASK [influxdb : Upload cron influxdb-backup] **********************************
-ok: [bagi0-3]
+TASK [influxdb : Create InfluxDB backup and upload cron jobs] ******************
+--- before: /etc/cron.d/influxdb-backup
++++ after: /etc/cron.d/influxdb-backup
+@@ -0,0 +1,2 @@
++#Ansible: InfluxDB telegraf database backup
++0 17 * * * backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
+
+changed: [bagi0-3] => (item={'name': 'InfluxDB telegraf database backup', 'minute': '0', 'hour': '17', 'weekday': '*', 'job': 'rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb'})
+--- before: /etc/cron.d/influxdb-backup
++++ after: /etc/cron.d/influxdb-backup
+@@ -1,2 +1,4 @@
+ #Ansible: InfluxDB telegraf database backup
+ 0 17 * * * backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
++#Ansible: Duplicity full backup of InfluxDB
++15 17 * * 6 backup duplicity --no-encryption full /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb
+
+changed: [bagi0-3] => (item={'name': 'Duplicity full backup of InfluxDB', 'minute': '15', 'hour': '17', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb'})
+--- before: /etc/cron.d/influxdb-backup
++++ after: /etc/cron.d/influxdb-backup
+@@ -2,3 +2,5 @@
+ 0 17 * * * backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
+ #Ansible: Duplicity full backup of InfluxDB
+ 15 17 * * 6 backup duplicity --no-encryption full /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb
++#Ansible: Duplicity incremental backup of InfluxDB
++30 17 * * 0-5 backup duplicity --no-encryption incremental /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb
+
+changed: [bagi0-3] => (item={'name': 'Duplicity incremental backup of InfluxDB', 'minute': '30', 'hour': '17', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb'})
 
 TASK [influxdb : Add InfluxDB CNAME records] ***********************************
-ok: [bagi0-3] => (item={'key': 'influxdb', 'value': 'bagi0-3'})
+changed: [bagi0-3] => (item={'key': 'influxdb', 'value': 'bagi0-3'})
 
-PLAY [Pinger] ******************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-3]
+TASK [pinger : Add user "pinger"] **********************************************
+changed: [bagi0-3]
 
 TASK [pinger : Install fping] **************************************************
+The following NEW packages will be installed:
+  fping
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-3]
+
+TASK [pinger : Create pinger directory] ****************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/etc/pinger",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bagi0-3]
+
+TASK [pinger : Copy pinger service file] ***************************************
+--- before
++++ after: /Users/tester/Documents/GitHub/ica0002/roles/pinger/files/pinger.service
+@@ -0,0 +1,9 @@
++[Unit]
++After=network-online.target
++
++[Service]
++User=pinger
++ExecStart=/usr/local/bin/pinger
++
++[Install]
++WantedBy=multi-user.target
+\ No newline at end of file
+
+changed: [bagi0-3]
+
+TASK [pinger : Copy pinger config] *********************************************
+changed: [bagi0-3]
+
+TASK [pinger : Copy pinger shell file] *****************************************
+changed: [bagi0-3]
+
+TASK [pinger : Start and enable pinger] ****************************************
+changed: [bagi0-3]
+
+TASK [nginx : Install nginx] ***************************************************
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common nginx-core
+Suggested packages:
+  libgd-tools fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx nginx-common nginx-core
+0 upgraded, 17 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-3]
+
+TASK [nginx : Copy default to Sites-enabled] ***********************************
+changed: [bagi0-3]
+
+TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
 ok: [bagi0-3]
 
-TASK [pinger : Create user "pinger"] *******************************************
-ok: [bagi0-3]
+TASK [nginx : Install Nginx exporter] ******************************************
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-3]
 
-TASK [pinger : Add pinger shell to vm in /usr/local/bin] ***********************
-ok: [bagi0-3]
+TASK [nginx : Start and enable nginx exporter] *********************************
+changed: [bagi0-3]
 
-TASK [pinger : Add Pinger Service] *********************************************
-ok: [bagi0-3]
+TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
+changed: [bagi0-3]
 
-TASK [pinger : Execute systemd reload to enable pinger service] ****************
-ok: [bagi0-3]
+TASK [nginx : Add www CNAME records] *******************************************
+ok: [bagi0-3] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+ok: [bagi0-3] => (item={'key': 'www-2', 'value': 'bagi0-2'})
 
-TASK [pinger : Create pinger conf dir] *****************************************
-ok: [bagi0-3]
+RUNNING HANDLER [prometheus : Restart prometheus] ******************************
+changed: [bagi0-3]
 
-TASK [pinger : Add pinger conf to vm] ******************************************
-ok: [bagi0-3]
+RUNNING HANDLER [prometheus : Systemctl daemon-reload] *************************
+changed: [bagi0-3]
 
-TASK [pinger : Start pinger uncodnitionally] ***********************************
-ok: [bagi0-3]
+RUNNING HANDLER [influxdb : Restart Influxdb] **********************************
+changed: [bagi0-3]
 
-PLAY [Keepalived and Haproxy] **************************************************
+RUNNING HANDLER [influxdb : Restart Telegraf] **********************************
+changed: [bagi0-3]
+
+RUNNING HANDLER [influxdb : Restart systemd] ***********************************
+changed: [bagi0-3]
+
+RUNNING HANDLER [pinger : Restart pinger] **************************************
+changed: [bagi0-3]
+
+RUNNING HANDLER [nginx : restart nginx] ****************************************
+changed: [bagi0-3]
+
+RUNNING HANDLER [nginx : Reload systemd] ***************************************
+changed: [bagi0-3]
+
+RUNNING HANDLER [nginx : restart prometheus-nginx-exporter] ********************
+changed: [bagi0-3]
+
+PLAY [Load Balancer and High Availability] *************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [keepalived : Install keepalived & keepalived_exporter] *******************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : Create user "keepalived_script"] ****************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [keepalived : keepalived.conf] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : vrrp_script] ************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : Install keepalived_exporter] ********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : keepalived exporter service] ********************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [keepalived : keepalived exporter args] ***********************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [keepalived : Enable keepalived and keepalived_exporter] ******************
-ok: [bagi0-1] => (item=keepalived)
-ok: [bagi0-2] => (item=keepalived)
-ok: [bagi0-1] => (item=keepalived_exporter)
-ok: [bagi0-2] => (item=keepalived_exporter)
-
 TASK [haproxy : Install HAProxy] ***********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
+The following additional packages will be installed:
+  liblua5.3-0
+Suggested packages:
+  vim-haproxy haproxy-doc
+The following NEW packages will be installed:
+  haproxy liblua5.3-0
+0 upgraded, 2 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+The following additional packages will be installed:
+  liblua5.3-0
+Suggested packages:
+  vim-haproxy haproxy-doc
+The following NEW packages will be installed:
+  haproxy liblua5.3-0
+0 upgraded, 2 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
 
 TASK [haproxy : Upload HAProxy configuration] **********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
+changed: [bagi0-2]
+changed: [bagi0-1]
 
 TASK [haproxy : Ensure HAProxy is running and enabled] *************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [haproxy : Install HAproxy exporter] **************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
+The following NEW packages will be installed:
+  prometheus-haproxy-exporter
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
+The following NEW packages will be installed:
+  prometheus-haproxy-exporter
+0 upgraded, 1 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
 
 TASK [haproxy : Upload HAproxy exporter configuration] *************************
-ok: [bagi0-1]
-ok: [bagi0-2]
+changed: [bagi0-1]
+changed: [bagi0-2]
 
 TASK [haproxy : Ensure HAproxy exporter is started] ****************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [haproxy : Add HAproxy CNAME records] *************************************
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb1', 'value': 'bagi0-1'})
 ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb1', 'value': 'bagi0-1'})
+changed: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb1', 'value': 'bagi0-1'})
 ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb2', 'value': 'bagi0-2'})
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb2', 'value': 'bagi0-2'})
+changed: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb2', 'value': 'bagi0-2'})
+
+TASK [keepalived : Install keepalived] *****************************************
+The following additional packages will be installed:
+  ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
+  libsensors5 libsnmp-base libsnmp35
+Suggested packages:
+  heartbeat ldirectord lm-sensors snmp-mibs-downloader
+The following NEW packages will be installed:
+  ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
+  libsensors-config libsensors5 libsnmp-base libsnmp35
+0 upgraded, 9 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-2]
+The following additional packages will be installed:
+  ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
+  libsensors5 libsnmp-base libsnmp35
+Suggested packages:
+  heartbeat ldirectord lm-sensors snmp-mibs-downloader
+The following NEW packages will be installed:
+  ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
+  libsensors-config libsensors5 libsnmp-base libsnmp35
+0 upgraded, 9 newly installed, 0 to remove and 262 not upgraded.
+changed: [bagi0-1]
+
+TASK [keepalived : Upload keepalived configuration] ****************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [keepalived : Upload keepalived check script] *****************************
+--- before
++++ after: /Users/tester/.ansible/tmp/ansible-local-98321ckt8i42h/tmpqwe5rxyz/check_haproxy.sh.j2
+@@ -0,0 +1,2 @@
++#!/bin/bash
++ss -ntl | grep -q ':88 '
+
+changed: [bagi0-2]
+--- before
++++ after: /Users/tester/.ansible/tmp/ansible-local-98321ckt8i42h/tmpqwe5rxyz/check_haproxy.sh.j2
+@@ -0,0 +1,2 @@
++#!/bin/bash
++ss -ntl | grep -q ':88 '
+
+changed: [bagi0-1]
+
+TASK [keepalived : Ensure keepalived is running] *******************************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+TASK [keepalived : Extract Keepalived exporter from tar.gz file] ***************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+TASK [keepalived : Set permissions for keepalived-exporter binary] *************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [keepalived : Add keepalived exporter Service] ****************************
+--- before
++++ after: /Users/tester/.ansible/tmp/ansible-local-98321ckt8i42h/tmpqwe5rxyz/keepalived-exporter.service.j2
+@@ -0,0 +1,10 @@
++[Unit]
++Description=Exporter for keepalive data
++After=network-online.target
++
++[Service]
++User=root
++ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter
++
++[Install]
++WantedBy=multi-user.target
+
+changed: [bagi0-2]
+--- before
++++ after: /Users/tester/.ansible/tmp/ansible-local-98321ckt8i42h/tmpqwe5rxyz/keepalived-exporter.service.j2
+@@ -0,0 +1,10 @@
++[Unit]
++Description=Exporter for keepalive data
++After=network-online.target
++
++[Service]
++User=root
++ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter
++
++[Install]
++WantedBy=multi-user.target
+
+changed: [bagi0-1]
+
+TASK [keepalived : Enable and start keepalived-exporter] ***********************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+RUNNING HANDLER [haproxy : restart haproxy] ************************************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+RUNNING HANDLER [haproxy : restart prometheus-haproxy-exporter] ****************
+changed: [bagi0-1]
+changed: [bagi0-2]
+
+RUNNING HANDLER [keepalived : restart keepalived] ******************************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+RUNNING HANDLER [keepalived : restart keepalived-exporter] *********************
+changed: [bagi0-2]
+changed: [bagi0-1]
+
+RUNNING HANDLER [keepalived : reload systemd] **********************************
+ok: [bagi0-2]
+ok: [bagi0-1]
 
 PLAY RECAP *********************************************************************
-bagi0-1                    : ok=75   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
-bagi0-2                    : ok=75   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
-bagi0-3                    : ok=77   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+bagi0-1                : ok=84   changed=68   unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+bagi0-2                : ok=84   changed=67   unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+bagi0-3                : ok=83   changed=72   unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 
 + ansible-playbook infra.yaml --diff
 
-PLAY [Init] ********************************************************************
+PLAY [Initial setup] ***********************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [bagi0-3]
 ok: [bagi0-1]
 ok: [bagi0-2]
+ok: [bagi0-3]
 
 TASK [init : Update APT cache] *************************************************
 ok: [bagi0-3]
@@ -544,105 +1344,120 @@ ok: [bagi0-2]
 
 TASK [init : Install Prometheus node_exporter] *********************************
 ok: [bagi0-1]
-ok: [bagi0-3]
 ok: [bagi0-2]
+ok: [bagi0-3]
 
 TASK [init : Start node exporter] **********************************************
-ok: [bagi0-1]
 ok: [bagi0-2]
 ok: [bagi0-3]
+ok: [bagi0-1]
 
 TASK [init : Ensure up-to-date CA certificates are installed] ******************
+ok: [bagi0-2]
 ok: [bagi0-1]
 ok: [bagi0-3]
-ok: [bagi0-2]
 
 TASK [init : Copy rsyslog config] **********************************************
+ok: [bagi0-1]
 ok: [bagi0-3]
 ok: [bagi0-2]
-ok: [bagi0-1]
 
 TASK [init : Add the user 'backup'] ********************************************
 ok: [bagi0-3]
-ok: [bagi0-1]
 ok: [bagi0-2]
+ok: [bagi0-1]
 
 TASK [init : Template a file to /home/backup/.ssh/known_hosts] *****************
-ok: [bagi0-3]
-ok: [bagi0-2]
 ok: [bagi0-1]
+ok: [bagi0-2]
+ok: [bagi0-3]
 
 TASK [init : Ensure restoration directory exists] ******************************
-ok: [bagi0-1]
 ok: [bagi0-3]
+ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [init : Install Duplicity] ************************************************
+ok: [bagi0-3]
 ok: [bagi0-1]
 ok: [bagi0-2]
-ok: [bagi0-3]
 
-PLAY [DNS server] **************************************************************
+PLAY [DNS Server Setup] ********************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-3]
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [bind : Install bind] *****************************************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [bind : Start service bind9, if not started] ******************************
-ok: [bagi0-1]
+TASK [bind : Install Bind9] ****************************************************
 ok: [bagi0-3]
 ok: [bagi0-2]
-
-TASK [bind : Bind9 exporter] ***************************************************
-ok: [bagi0-3]
 ok: [bagi0-1]
-ok: [bagi0-2]
 
-TASK [bind : Start Bind9 exporter] *********************************************
+TASK [bind : Ensure Bind9 is running and enabled] ******************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 ok: [bagi0-3]
 
-TASK [bind : Configure options.j2] *********************************************
-ok: [bagi0-3]
-ok: [bagi0-2]
+TASK [bind : Upload Bind9 main configuration] **********************************
 ok: [bagi0-1]
+ok: [bagi0-2]
+ok: [bagi0-3]
+
+TASK [bind : Upload Bind9 local configuration for primary] *********************
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+ok: [bagi0-3]
+
+TASK [bind : Upload primary zone database configuration if not exists] *********
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+ok: [bagi0-3]
+
+TASK [bind : Upload reverse zone database configuration for primary] ***********
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+ok: [bagi0-3]
+
+TASK [bind : Upload Bind9 local configuration for secondary] *******************
+skipping: [bagi0-3]
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [bind : Ensure directory for secondary zone files exists] *****************
+skipping: [bagi0-3]
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [bind : Configure /etc/resolv.conf] ***************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+ok: [bagi0-3]
+
+TASK [bind : Ensure proper permissions on BIND directories and files] **********
+ok: [bagi0-1] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+ok: [bagi0-3] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+ok: [bagi0-2] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+ok: [bagi0-1] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
+ok: [bagi0-3] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
+ok: [bagi0-2] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
 
 TASK [bind : Disable systemd-resolved] *****************************************
+ok: [bagi0-1]
+ok: [bagi0-3]
+ok: [bagi0-2]
+
+TASK [bind : Install Bind9 exporter] *******************************************
 ok: [bagi0-3]
 ok: [bagi0-2]
 ok: [bagi0-1]
 
-TASK [bind : Configure local.j2] ***********************************************
-ok: [bagi0-1]
+TASK [bind : Start Bind exporter] **********************************************
 ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [bind : Configure rabagh.io.j2] *******************************************
-skipping: [bagi0-1]
-skipping: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [bind : Configure db.rev.j2] **********************************************
-skipping: [bagi0-1]
-skipping: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [bind : Upload prometheus bind exporter var conf] *************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [bind : Ensure bind_exporters is always started please] *******************
 ok: [bagi0-1]
 ok: [bagi0-3]
-ok: [bagi0-2]
+
+TASK [bind : Restart bind and reload rndc] *************************************
 
 TASK [bind : Add A server records] *********************************************
 skipping: [bagi0-1] => (item={'key': 'backup', 'value': '192.168.42.132'}) 
@@ -650,89 +1465,47 @@ skipping: [bagi0-2] => (item={'key': 'backup', 'value': '192.168.42.132'})
 ok: [bagi0-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
 
 TASK [bind : Add DNS CNAME records] ********************************************
-skipping: [bagi0-1] => (item={'key': 'ns1', 'value': 'bagi0-3'}) 
-skipping: [bagi0-1] => (item={'key': 'ns2', 'value': 'bagi0-1'}) 
-skipping: [bagi0-1] => (item={'key': 'ns3', 'value': 'bagi0-2'}) 
-skipping: [bagi0-2] => (item={'key': 'ns1', 'value': 'bagi0-3'}) 
-skipping: [bagi0-2] => (item={'key': 'ns2', 'value': 'bagi0-1'}) 
-skipping: [bagi0-2] => (item={'key': 'ns3', 'value': 'bagi0-2'}) 
-ok: [bagi0-3] => (item={'key': 'ns1', 'value': 'bagi0-3'})
-ok: [bagi0-3] => (item={'key': 'ns2', 'value': 'bagi0-1'})
-ok: [bagi0-3] => (item={'key': 'ns3', 'value': 'bagi0-2'})
+skipping: [bagi0-1] => (item={'key': 'ns1', 'value': 'bagi0-1'}) 
+skipping: [bagi0-1] => (item={'key': 'ns2', 'value': 'bagi0-2'}) 
+skipping: [bagi0-1] => (item={'key': 'ns3', 'value': 'bagi0-3'}) 
+skipping: [bagi0-2] => (item={'key': 'ns1', 'value': 'bagi0-1'}) 
+skipping: [bagi0-2] => (item={'key': 'ns2', 'value': 'bagi0-2'}) 
+skipping: [bagi0-2] => (item={'key': 'ns3', 'value': 'bagi0-3'}) 
+ok: [bagi0-3] => (item={'key': 'ns1', 'value': 'bagi0-1'})
+ok: [bagi0-3] => (item={'key': 'ns2', 'value': 'bagi0-2'})
+ok: [bagi0-3] => (item={'key': 'ns3', 'value': 'bagi0-3'})
 
-PLAY [DNS setup] ***************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-2]
-ok: [bagi0-3]
-ok: [bagi0-1]
-
-TASK [dns_setup : update DNS on  VM] *******************************************
-ok: [bagi0-2]
-ok: [bagi0-3]
-ok: [bagi0-1]
-
-TASK [dns_setup : Stop systemd-resolved service] *******************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-PLAY [Docker setup] ************************************************************
+PLAY [Database server setup] ***************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [docker : Install docker] *************************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [docker : Docker is started] **********************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-ok: [bagi0-3]
-
-PLAY [Database server] *********************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Install mysql-server] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Install Pymsql] **************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Copying and restarting mysql] ************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Start mysql] *****************************************************
 ok: [bagi0-2]
 ok: [bagi0-1]
 
-TASK [mysql : Create Database] *************************************************
+TASK [mysql : Install MySQL server] ********************************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [mysql : Configure MySQL with template] ***********************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Create User] *****************************************************
+TASK [mysql : Ensure MySQL service is started and enabled on boot] *************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Install MySQL exporter and python3-pymysql] **********************
+TASK [mysql : Install PyMySQL library] *****************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Create directory] ************************************************
+TASK [mysql : Create MySQL database] *******************************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [mysql : MySQL user] ******************************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Configure MySQL exporter] ****************************************
+TASK [mysql : Install MySQL exporter] ******************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
@@ -740,39 +1513,45 @@ TASK [mysql : Create MySQL exporter user] **************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Force all notified handlers] *************************************
-
-TASK [mysql : Start mysql exporter] ********************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [mysql : Make Backup owner of MySQL DIR] **********************************
+TASK [mysql : Create .my.cnf for MySQL exporter] *******************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : MySQL backup user] ***********************************************
+TASK [mysql : Upload prometheus-mysqld-exporter configuration] *****************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Make Backup Template] ********************************************
+TASK [mysql : Ensure MySQL backup directory exists and set correct permissions] ***
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Make cron backup] ************************************************
+TASK [mysql : Create MySQL backup user] ****************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Template mysql exporter replication metrics] *********************
+TASK [mysql : Create MySQL client configuration for backup user] ***************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : MySQL replication user] ******************************************
+TASK [mysql : Create MySQL replication user] ***********************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : read only mode for replica server, and remove it from source server] ***
+TASK [mysql : Add read only mode to secondary mysql server] ********************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [mysql : Start and enable mysql exporter] *********************************
 ok: [bagi0-1]
 ok: [bagi0-2]
+
+TASK [mysql : Create or remove MySQL dump and upload cron jobs based on host role] ***
+ok: [bagi0-1] => (item={'name': 'agama db backup', 'minute': '30', 'hour': '16', 'weekday': '*', 'job': 'mysqldump agama > /home/backup/mysql/agama.sql'})
+ok: [bagi0-2] => (item={'name': 'agama db backup', 'minute': '30', 'hour': '16', 'weekday': '*', 'job': 'mysqldump agama > /home/backup/mysql/agama.sql'})
+ok: [bagi0-2] => (item={'name': 'duplicity full', 'minute': '45', 'hour': '16', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+ok: [bagi0-1] => (item={'name': 'duplicity full', 'minute': '45', 'hour': '16', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+ok: [bagi0-2] => (item={'name': 'duplicity increment', 'minute': '45', 'hour': '16', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+ok: [bagi0-1] => (item={'name': 'duplicity increment', 'minute': '45', 'hour': '16', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
 
 TASK [mysql : Add MySQL CNAME records] *****************************************
 ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql1', 'value': 'bagi0-1'})
@@ -780,78 +1559,73 @@ ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql1', 'value': 'bag
 ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql2', 'value': 'bagi0-2'})
 ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql2', 'value': 'bagi0-2'})
 
-PLAY [Web server] **************************************************************
+PLAY [Deploy Web Servers] ******************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-1]
-ok: [bagi0-3]
 ok: [bagi0-2]
 
-TASK [nginx : Install nginx] ***************************************************
+TASK [docker : Install docker] *************************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
-ok: [bagi0-3]
 
-TASK [nginx : Copy default to Sites-enabled] ***********************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
-
-TASK [nginx : Install Nginx exporter] ******************************************
+TASK [docker : Docker is started] **********************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [nginx : Start and enable nginx exporter] *********************************
-ok: [bagi0-3]
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
-ok: [bagi0-2]
-ok: [bagi0-3]
-ok: [bagi0-1]
-
-TASK [nginx : Add www CNAME records] *******************************************
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-3] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-ok: [bagi0-3] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-
-PLAY [Agama] *******************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
 
 TASK [agama : Create /opt/agama directory] *************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [agama : Download Dockerfile and agama.py] ********************************
-ok: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
 ok: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
-ok: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
+ok: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
 ok: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
+ok: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
 
 TASK [agama : Build Docker image for Agama] ************************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [agama : Start Agama container] *******************************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [agama : Start Agama container] *******************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [agama : Run agama docker container] **************************************
-ok: [bagi0-1] => (item=1)
-ok: [bagi0-2] => (item=1)
-ok: [bagi0-1] => (item=2)
-ok: [bagi0-2] => (item=2)
+TASK [nginx : Install nginx] ***************************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
 
-PLAY [Configure Prometheus] ****************************************************
+TASK [nginx : Copy default to Sites-enabled] ***********************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [nginx : Install Nginx exporter] ******************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [nginx : Start and enable nginx exporter] *********************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [nginx : Add www CNAME records] *******************************************
+ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
+ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
+
+PLAY [Monitoring Server Setup] *************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-3]
@@ -859,49 +1633,54 @@ ok: [bagi0-3]
 TASK [prometheus : Install Prometheus] *****************************************
 ok: [bagi0-3]
 
-TASK [prometheus : Prometheus args] ********************************************
+TASK [prometheus : Add prometheus ARGS] ****************************************
 ok: [bagi0-3]
 
-TASK [prometheus : Change prometheus.yml] **************************************
+TASK [prometheus : Add prometheus yml] *****************************************
 ok: [bagi0-3]
 
-TASK [prometheus : Enable Prometheus] ******************************************
+TASK [prometheus : Start and enable prometheus] ********************************
 ok: [bagi0-3]
 
 TASK [prometheus : Add Prometheus CNAME records] *******************************
 ok: [bagi0-3] => (item={'key': 'prometheus', 'value': 'bagi0-3'})
 
-PLAY [Grafana] *****************************************************************
-
-TASK [Gathering Facts] *********************************************************
+TASK [docker : Install docker] *************************************************
 ok: [bagi0-3]
 
-TASK [grafana : Provisioning config - Create directories] **********************
-ok: [bagi0-3] => (item={'directory': 'dashboards'})
-ok: [bagi0-3] => (item={'directory': 'datasources'})
-
-TASK [grafana : Template grafana.ini] ******************************************
+TASK [docker : Docker is started] **********************************************
 ok: [bagi0-3]
 
-TASK [grafana : Template files] ************************************************
-ok: [bagi0-3] => (item={'directory': 'dashboards', 'file': 'default.yaml', 'srcfile': 'dashboards.yaml.j2'})
-ok: [bagi0-3] => (item={'directory': 'datasources', 'file': 'default.yaml', 'srcfile': 'datasources.yaml'})
+TASK [grafana : Create Grafana directories for provisioning] *******************
+ok: [bagi0-3] => (item=/opt/grafana/provisioning/dashboards)
+ok: [bagi0-3] => (item=/opt/grafana/provisioning/datasources)
 
-TASK [grafana : Copy files] ****************************************************
-ok: [bagi0-3] => (item=main.json)
-ok: [bagi0-3] => (item=mysql.json)
-ok: [bagi0-3] => (item=syslog.json)
+TASK [grafana : Configure Grafana settings] ************************************
+ok: [bagi0-3]
 
-TASK [grafana : Start Grafana in docker container] *****************************
+TASK [grafana : Configure Grafana datasources] *********************************
+ok: [bagi0-3]
+
+TASK [grafana : Configure Grafana dashboard providers] *************************
+ok: [bagi0-3]
+
+TASK [grafana : Configure main dashboard] **************************************
+ok: [bagi0-3]
+
+TASK [grafana : Configure syslog dashboard] ************************************
+ok: [bagi0-3]
+
+TASK [grafana : Configure MySQL dashboard] *************************************
+ok: [bagi0-3]
+
+TASK [grafana : Pull Grafana Docker image] *************************************
+ok: [bagi0-3]
+
+TASK [grafana : Start Grafana container with proper volume mounts] *************
 ok: [bagi0-3]
 
 TASK [grafana : Add Grafana CNAME records] *************************************
 ok: [bagi0-3] => (item={'key': 'grafana', 'value': 'bagi0-3'})
-
-PLAY [Influxdb] ****************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-3]
 
 TASK [influxdb : Download influxdb] ********************************************
 ok: [bagi0-3]
@@ -909,116 +1688,95 @@ ok: [bagi0-3]
 TASK [influxdb : Install influxDB] *********************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add InfluxDB conf file] ***************************************
+TASK [influxdb : Configure InfluxDB] *******************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Ensure influxdb is always started please] *********************
+TASK [influxdb : Start and enable InfluxDB] ************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add Telegraf Apt signing key] *********************************
+TASK [influxdb : Add InfluxData repository key] ********************************
 ok: [bagi0-3]
 
-TASK [influxdb : Get Telegraf deb] *********************************************
+TASK [influxdb : Add InfluxData repository] ************************************
 ok: [bagi0-3]
 
 TASK [influxdb : Install Telegraf] *********************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add Telegraf conf file] ***************************************
+TASK [influxdb : Configure Telegraf] *******************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Ensure influxdb is always started please] *********************
+TASK [influxdb : Start and enable Telegraf] ************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add Influxdb Exporter Service Binary file] ********************
+TASK [influxdb : Download InfluxDB stats exporter] *****************************
 ok: [bagi0-3]
 
-TASK [influxdb : Change file ownership, group and permissions] *****************
+TASK [influxdb : Copy influx exporter service file] ****************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add Influxdb Exporter Service] ********************************
+TASK [influxdb : Start and enable influx exporter] *****************************
 ok: [bagi0-3]
 
-TASK [influxdb : Execute systemd reload to enable influx exporter service] *****
+TASK [influxdb : Ensure InfluxDB backup directory exists and set correct permissions] ***
 ok: [bagi0-3]
 
-TASK [influxdb : Start influx exporter uncodnitionally] ************************
-ok: [bagi0-3]
-
-TASK [influxdb : Upload cron influxdb-backup] **********************************
-ok: [bagi0-3]
+TASK [influxdb : Create InfluxDB backup and upload cron jobs] ******************
+ok: [bagi0-3] => (item={'name': 'InfluxDB telegraf database backup', 'minute': '0', 'hour': '17', 'weekday': '*', 'job': 'rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb'})
+ok: [bagi0-3] => (item={'name': 'Duplicity full backup of InfluxDB', 'minute': '15', 'hour': '17', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb'})
+ok: [bagi0-3] => (item={'name': 'Duplicity incremental backup of InfluxDB', 'minute': '30', 'hour': '17', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb'})
 
 TASK [influxdb : Add InfluxDB CNAME records] ***********************************
 ok: [bagi0-3] => (item={'key': 'influxdb', 'value': 'bagi0-3'})
 
-PLAY [Pinger] ******************************************************************
-
-TASK [Gathering Facts] *********************************************************
+TASK [pinger : Add user "pinger"] **********************************************
 ok: [bagi0-3]
 
 TASK [pinger : Install fping] **************************************************
 ok: [bagi0-3]
 
-TASK [pinger : Create user "pinger"] *******************************************
+TASK [pinger : Create pinger directory] ****************************************
 ok: [bagi0-3]
 
-TASK [pinger : Add pinger shell to vm in /usr/local/bin] ***********************
+TASK [pinger : Copy pinger service file] ***************************************
 ok: [bagi0-3]
 
-TASK [pinger : Add Pinger Service] *********************************************
+TASK [pinger : Copy pinger config] *********************************************
 ok: [bagi0-3]
 
-TASK [pinger : Execute systemd reload to enable pinger service] ****************
+TASK [pinger : Copy pinger shell file] *****************************************
 ok: [bagi0-3]
 
-TASK [pinger : Create pinger conf dir] *****************************************
+TASK [pinger : Start and enable pinger] ****************************************
 ok: [bagi0-3]
 
-TASK [pinger : Add pinger conf to vm] ******************************************
+TASK [nginx : Install nginx] ***************************************************
 ok: [bagi0-3]
 
-TASK [pinger : Start pinger uncodnitionally] ***********************************
+TASK [nginx : Copy default to Sites-enabled] ***********************************
 ok: [bagi0-3]
 
-PLAY [Keepalived and Haproxy] **************************************************
+TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
+ok: [bagi0-3]
+
+TASK [nginx : Install Nginx exporter] ******************************************
+ok: [bagi0-3]
+
+TASK [nginx : Start and enable nginx exporter] *********************************
+ok: [bagi0-3]
+
+TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
+ok: [bagi0-3]
+
+TASK [nginx : Add www CNAME records] *******************************************
+ok: [bagi0-3] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+ok: [bagi0-3] => (item={'key': 'www-2', 'value': 'bagi0-2'})
+
+PLAY [Load Balancer and High Availability] *************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
-
-TASK [keepalived : Install keepalived & keepalived_exporter] *******************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : Create user "keepalived_script"] ****************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [keepalived : keepalived.conf] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : vrrp_script] ************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : Install keepalived_exporter] ********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : keepalived exporter service] ********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : keepalived exporter args] ***********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : Enable keepalived and keepalived_exporter] ******************
-ok: [bagi0-1] => (item=keepalived)
-ok: [bagi0-2] => (item=keepalived)
-ok: [bagi0-1] => (item=keepalived_exporter)
-ok: [bagi0-2] => (item=keepalived_exporter)
 
 TASK [haproxy : Install HAProxy] ***********************************************
 ok: [bagi0-1]
@@ -1050,30 +1808,62 @@ ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb1', 'value': 'bagi0-
 ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb2', 'value': 'bagi0-2'})
 ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb2', 'value': 'bagi0-2'})
 
+TASK [keepalived : Install keepalived] *****************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [keepalived : Upload keepalived configuration] ****************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [keepalived : Upload keepalived check script] *****************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [keepalived : Ensure keepalived is running] *******************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [keepalived : Extract Keepalived exporter from tar.gz file] ***************
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+
+TASK [keepalived : Set permissions for keepalived-exporter binary] *************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [keepalived : Add keepalived exporter Service] ****************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [keepalived : Enable and start keepalived-exporter] ***********************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
 PLAY RECAP *********************************************************************
-bagi0-1                    : ok=75   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
-bagi0-2                    : ok=75   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
-bagi0-3                    : ok=77   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+bagi0-1                : ok=70   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+bagi0-2                : ok=70   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+bagi0-3                : ok=71   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 
 + ansible all -b -m reboot -a test_command=uptime
 bagi0-3 | CHANGED => {
     "changed": true,
-    "elapsed": 49,
-    "rebooted": true
-}
-bagi0-2 | CHANGED => {
-    "changed": true,
-    "elapsed": 58,
+    "elapsed": 36,
     "rebooted": true
 }
 bagi0-1 | CHANGED => {
     "changed": true,
-    "elapsed": 60,
+    "elapsed": 46,
+    "rebooted": true
+}
+bagi0-2 | CHANGED => {
+    "changed": true,
+    "elapsed": 47,
     "rebooted": true
 }
 + ansible-playbook infra.yaml --diff
 
-PLAY [Init] ********************************************************************
+PLAY [Initial setup] ***********************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-3]
@@ -1081,43 +1871,43 @@ ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [init : Update APT cache] *************************************************
-ok: [bagi0-1]
 ok: [bagi0-3]
 ok: [bagi0-2]
+ok: [bagi0-1]
 
 TASK [init : Install Prometheus node_exporter] *********************************
-ok: [bagi0-1]
 ok: [bagi0-3]
 ok: [bagi0-2]
+ok: [bagi0-1]
 
 TASK [init : Start node exporter] **********************************************
 ok: [bagi0-3]
-ok: [bagi0-1]
 ok: [bagi0-2]
+ok: [bagi0-1]
 
 TASK [init : Ensure up-to-date CA certificates are installed] ******************
-ok: [bagi0-1]
 ok: [bagi0-3]
 ok: [bagi0-2]
+ok: [bagi0-1]
 
 TASK [init : Copy rsyslog config] **********************************************
 ok: [bagi0-3]
-ok: [bagi0-1]
 ok: [bagi0-2]
+ok: [bagi0-1]
 
 TASK [init : Add the user 'backup'] ********************************************
-ok: [bagi0-1]
 ok: [bagi0-3]
 ok: [bagi0-2]
+ok: [bagi0-1]
 
 TASK [init : Template a file to /home/backup/.ssh/known_hosts] *****************
-ok: [bagi0-2]
 ok: [bagi0-3]
 ok: [bagi0-1]
+ok: [bagi0-2]
 
 TASK [init : Ensure restoration directory exists] ******************************
-ok: [bagi0-2]
 ok: [bagi0-3]
+ok: [bagi0-2]
 ok: [bagi0-1]
 
 TASK [init : Install Duplicity] ************************************************
@@ -1125,67 +1915,82 @@ ok: [bagi0-3]
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-PLAY [DNS server] **************************************************************
+PLAY [DNS Server Setup] ********************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-3]
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [bind : Install bind] *****************************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-ok: [bagi0-3]
-
-TASK [bind : Start service bind9, if not started] ******************************
+TASK [bind : Install Bind9] ****************************************************
 ok: [bagi0-3]
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [bind : Bind9 exporter] ***************************************************
+TASK [bind : Ensure Bind9 is running and enabled] ******************************
+ok: [bagi0-3]
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [bind : Upload Bind9 main configuration] **********************************
+ok: [bagi0-3]
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [bind : Upload Bind9 local configuration for primary] *********************
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+ok: [bagi0-3]
+
+TASK [bind : Upload primary zone database configuration if not exists] *********
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+ok: [bagi0-3]
+
+TASK [bind : Upload reverse zone database configuration for primary] ***********
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+ok: [bagi0-3]
+
+TASK [bind : Upload Bind9 local configuration for secondary] *******************
+skipping: [bagi0-3]
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [bind : Ensure directory for secondary zone files exists] *****************
+skipping: [bagi0-3]
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [bind : Configure /etc/resolv.conf] ***************************************
 ok: [bagi0-1]
 ok: [bagi0-3]
 ok: [bagi0-2]
 
-TASK [bind : Start Bind9 exporter] *********************************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [bind : Configure options.j2] *********************************************
-ok: [bagi0-1]
-ok: [bagi0-3]
-ok: [bagi0-2]
+TASK [bind : Ensure proper permissions on BIND directories and files] **********
+ok: [bagi0-1] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+ok: [bagi0-3] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+ok: [bagi0-2] => (item={'path': '/etc/bind', 'owner': 'root', 'group': 'bind', 'mode': '0755'})
+ok: [bagi0-1] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
+ok: [bagi0-3] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
+ok: [bagi0-2] => (item={'path': '/var/cache/bind', 'owner': 'bind', 'group': 'bind', 'mode': '0775'})
 
 TASK [bind : Disable systemd-resolved] *****************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-ok: [bagi0-3]
-
-TASK [bind : Configure local.j2] ***********************************************
 ok: [bagi0-3]
 ok: [bagi0-2]
 ok: [bagi0-1]
 
-TASK [bind : Configure rabagh.io.j2] *******************************************
-skipping: [bagi0-1]
-skipping: [bagi0-2]
+TASK [bind : Install Bind9 exporter] *******************************************
 ok: [bagi0-3]
-
-TASK [bind : Configure db.rev.j2] **********************************************
-skipping: [bagi0-1]
-skipping: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [bind : Upload prometheus bind exporter var conf] *************************
 ok: [bagi0-2]
-ok: [bagi0-3]
 ok: [bagi0-1]
 
-TASK [bind : Ensure bind_exporters is always started please] *******************
-ok: [bagi0-1]
+TASK [bind : Start Bind exporter] **********************************************
 ok: [bagi0-2]
+ok: [bagi0-1]
 ok: [bagi0-3]
+
+TASK [bind : Restart bind and reload rndc] *************************************
 
 TASK [bind : Add A server records] *********************************************
 skipping: [bagi0-1] => (item={'key': 'backup', 'value': '192.168.42.132'}) 
@@ -1193,129 +1998,93 @@ skipping: [bagi0-2] => (item={'key': 'backup', 'value': '192.168.42.132'})
 ok: [bagi0-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
 
 TASK [bind : Add DNS CNAME records] ********************************************
-skipping: [bagi0-1] => (item={'key': 'ns1', 'value': 'bagi0-3'}) 
-skipping: [bagi0-1] => (item={'key': 'ns2', 'value': 'bagi0-1'}) 
-skipping: [bagi0-1] => (item={'key': 'ns3', 'value': 'bagi0-2'}) 
-skipping: [bagi0-2] => (item={'key': 'ns1', 'value': 'bagi0-3'}) 
-skipping: [bagi0-2] => (item={'key': 'ns2', 'value': 'bagi0-1'}) 
-skipping: [bagi0-2] => (item={'key': 'ns3', 'value': 'bagi0-2'}) 
-ok: [bagi0-3] => (item={'key': 'ns1', 'value': 'bagi0-3'})
-ok: [bagi0-3] => (item={'key': 'ns2', 'value': 'bagi0-1'})
-ok: [bagi0-3] => (item={'key': 'ns3', 'value': 'bagi0-2'})
+skipping: [bagi0-1] => (item={'key': 'ns1', 'value': 'bagi0-1'}) 
+skipping: [bagi0-1] => (item={'key': 'ns2', 'value': 'bagi0-2'}) 
+skipping: [bagi0-1] => (item={'key': 'ns3', 'value': 'bagi0-3'}) 
+skipping: [bagi0-2] => (item={'key': 'ns1', 'value': 'bagi0-1'}) 
+skipping: [bagi0-2] => (item={'key': 'ns2', 'value': 'bagi0-2'}) 
+skipping: [bagi0-2] => (item={'key': 'ns3', 'value': 'bagi0-3'}) 
+ok: [bagi0-3] => (item={'key': 'ns1', 'value': 'bagi0-1'})
+ok: [bagi0-3] => (item={'key': 'ns2', 'value': 'bagi0-2'})
+ok: [bagi0-3] => (item={'key': 'ns3', 'value': 'bagi0-3'})
 
-PLAY [DNS setup] ***************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [dns_setup : update DNS on  VM] *******************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [dns_setup : Stop systemd-resolved service] *******************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-PLAY [Docker setup] ************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [docker : Install docker] *************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [docker : Docker is started] **********************************************
-ok: [bagi0-3]
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-PLAY [Database server] *********************************************************
+PLAY [Database server setup] ***************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Install mysql-server] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Install Pymsql] **************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Copying and restarting mysql] ************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Start mysql] *****************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [mysql : Create Database] *************************************************
+TASK [mysql : Install MySQL server] ********************************************
 ok: [bagi0-2]
 ok: [bagi0-1]
 
-TASK [mysql : Create User] *****************************************************
+TASK [mysql : Configure MySQL with template] ***********************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Install MySQL exporter and python3-pymysql] **********************
+TASK [mysql : Ensure MySQL service is started and enabled on boot] *************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Create directory] ************************************************
+TASK [mysql : Install PyMySQL library] *****************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Configure MySQL exporter] ****************************************
+TASK [mysql : Create MySQL database] *******************************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [mysql : MySQL user] ******************************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [mysql : Install MySQL exporter] ******************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [mysql : Create MySQL exporter user] **************************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [mysql : Force all notified handlers] *************************************
-
-TASK [mysql : Start mysql exporter] ********************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Make Backup owner of MySQL DIR] **********************************
+TASK [mysql : Create .my.cnf for MySQL exporter] *******************************
 ok: [bagi0-2]
 ok: [bagi0-1]
 
-TASK [mysql : MySQL backup user] ***********************************************
+TASK [mysql : Upload prometheus-mysqld-exporter configuration] *****************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Make Backup Template] ********************************************
+TASK [mysql : Ensure MySQL backup directory exists and set correct permissions] ***
 ok: [bagi0-2]
 ok: [bagi0-1]
 
-TASK [mysql : Make cron backup] ************************************************
+TASK [mysql : Create MySQL backup user] ****************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : Template mysql exporter replication metrics] *********************
+TASK [mysql : Create MySQL client configuration for backup user] ***************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [mysql : Create MySQL replication user] ***********************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [mysql : Add read only mode to secondary mysql server] ********************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : MySQL replication user] ******************************************
+TASK [mysql : Start and enable mysql exporter] *********************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [mysql : read only mode for replica server, and remove it from source server] ***
-ok: [bagi0-2]
-ok: [bagi0-1]
+TASK [mysql : Create or remove MySQL dump and upload cron jobs based on host role] ***
+ok: [bagi0-2] => (item={'name': 'agama db backup', 'minute': '30', 'hour': '16', 'weekday': '*', 'job': 'mysqldump agama > /home/backup/mysql/agama.sql'})
+ok: [bagi0-1] => (item={'name': 'agama db backup', 'minute': '30', 'hour': '16', 'weekday': '*', 'job': 'mysqldump agama > /home/backup/mysql/agama.sql'})
+ok: [bagi0-2] => (item={'name': 'duplicity full', 'minute': '45', 'hour': '16', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+ok: [bagi0-1] => (item={'name': 'duplicity full', 'minute': '45', 'hour': '16', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+ok: [bagi0-2] => (item={'name': 'duplicity increment', 'minute': '45', 'hour': '16', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
+ok: [bagi0-1] => (item={'name': 'duplicity increment', 'minute': '45', 'hour': '16', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.rabagh.io/mysql'})
 
 TASK [mysql : Add MySQL CNAME records] *****************************************
 ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql1', 'value': 'bagi0-1'})
@@ -1323,54 +2092,17 @@ ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql1', 'value': 'bag
 ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql2', 'value': 'bagi0-2'})
 ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'mysql2', 'value': 'bagi0-2'})
 
-PLAY [Web server] **************************************************************
+PLAY [Deploy Web Servers] ******************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [bagi0-3]
 ok: [bagi0-1]
 ok: [bagi0-2]
 
-TASK [nginx : Install nginx] ***************************************************
+TASK [docker : Install docker] *************************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
-ok: [bagi0-3]
 
-TASK [nginx : Copy default to Sites-enabled] ***********************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
-ok: [bagi0-2]
-ok: [bagi0-1]
-ok: [bagi0-3]
-
-TASK [nginx : Install Nginx exporter] ******************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-ok: [bagi0-3]
-
-TASK [nginx : Start and enable nginx exporter] *********************************
-ok: [bagi0-2]
-ok: [bagi0-3]
-ok: [bagi0-1]
-
-TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
-ok: [bagi0-2]
-ok: [bagi0-3]
-ok: [bagi0-1]
-
-TASK [nginx : Add www CNAME records] *******************************************
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-3] => (item={'key': 'www-1', 'value': 'bagi0-1'})
-ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-ok: [bagi0-3] => (item={'key': 'www-2', 'value': 'bagi0-2'})
-
-PLAY [Agama] *******************************************************************
-
-TASK [Gathering Facts] *********************************************************
+TASK [docker : Docker is started] **********************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
@@ -1379,22 +2111,54 @@ ok: [bagi0-2]
 ok: [bagi0-1]
 
 TASK [agama : Download Dockerfile and agama.py] ********************************
-ok: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
 ok: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
+ok: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile', 'dest': 'Dockerfile'})
 ok: [bagi0-2] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
 ok: [bagi0-1] => (item={'url': 'https://raw.githubusercontent.com/hudolejev/agama/master/agama.py', 'dest': 'agama.py'})
 
 TASK [agama : Build Docker image for Agama] ************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [agama : Start Agama container] *******************************************
 ok: [bagi0-2]
 ok: [bagi0-1]
 
-TASK [agama : Run agama docker container] **************************************
-ok: [bagi0-1] => (item=1)
-ok: [bagi0-2] => (item=1)
-ok: [bagi0-2] => (item=2)
-ok: [bagi0-1] => (item=2)
+TASK [agama : Start Agama container] *******************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
 
-PLAY [Configure Prometheus] ****************************************************
+TASK [nginx : Install nginx] ***************************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [nginx : Copy default to Sites-enabled] ***********************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [nginx : Install Nginx exporter] ******************************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [nginx : Start and enable nginx exporter] *********************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [nginx : Add www CNAME records] *******************************************
+ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
+ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'www-2', 'value': 'bagi0-2'})
+
+PLAY [Monitoring Server Setup] *************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-3]
@@ -1402,49 +2166,54 @@ ok: [bagi0-3]
 TASK [prometheus : Install Prometheus] *****************************************
 ok: [bagi0-3]
 
-TASK [prometheus : Prometheus args] ********************************************
+TASK [prometheus : Add prometheus ARGS] ****************************************
 ok: [bagi0-3]
 
-TASK [prometheus : Change prometheus.yml] **************************************
+TASK [prometheus : Add prometheus yml] *****************************************
 ok: [bagi0-3]
 
-TASK [prometheus : Enable Prometheus] ******************************************
+TASK [prometheus : Start and enable prometheus] ********************************
 ok: [bagi0-3]
 
 TASK [prometheus : Add Prometheus CNAME records] *******************************
 ok: [bagi0-3] => (item={'key': 'prometheus', 'value': 'bagi0-3'})
 
-PLAY [Grafana] *****************************************************************
-
-TASK [Gathering Facts] *********************************************************
+TASK [docker : Install docker] *************************************************
 ok: [bagi0-3]
 
-TASK [grafana : Provisioning config - Create directories] **********************
-ok: [bagi0-3] => (item={'directory': 'dashboards'})
-ok: [bagi0-3] => (item={'directory': 'datasources'})
-
-TASK [grafana : Template grafana.ini] ******************************************
+TASK [docker : Docker is started] **********************************************
 ok: [bagi0-3]
 
-TASK [grafana : Template files] ************************************************
-ok: [bagi0-3] => (item={'directory': 'dashboards', 'file': 'default.yaml', 'srcfile': 'dashboards.yaml.j2'})
-ok: [bagi0-3] => (item={'directory': 'datasources', 'file': 'default.yaml', 'srcfile': 'datasources.yaml'})
+TASK [grafana : Create Grafana directories for provisioning] *******************
+ok: [bagi0-3] => (item=/opt/grafana/provisioning/dashboards)
+ok: [bagi0-3] => (item=/opt/grafana/provisioning/datasources)
 
-TASK [grafana : Copy files] ****************************************************
-ok: [bagi0-3] => (item=main.json)
-ok: [bagi0-3] => (item=mysql.json)
-ok: [bagi0-3] => (item=syslog.json)
+TASK [grafana : Configure Grafana settings] ************************************
+ok: [bagi0-3]
 
-TASK [grafana : Start Grafana in docker container] *****************************
+TASK [grafana : Configure Grafana datasources] *********************************
+ok: [bagi0-3]
+
+TASK [grafana : Configure Grafana dashboard providers] *************************
+ok: [bagi0-3]
+
+TASK [grafana : Configure main dashboard] **************************************
+ok: [bagi0-3]
+
+TASK [grafana : Configure syslog dashboard] ************************************
+ok: [bagi0-3]
+
+TASK [grafana : Configure MySQL dashboard] *************************************
+ok: [bagi0-3]
+
+TASK [grafana : Pull Grafana Docker image] *************************************
+ok: [bagi0-3]
+
+TASK [grafana : Start Grafana container with proper volume mounts] *************
 ok: [bagi0-3]
 
 TASK [grafana : Add Grafana CNAME records] *************************************
 ok: [bagi0-3] => (item={'key': 'grafana', 'value': 'bagi0-3'})
-
-PLAY [Influxdb] ****************************************************************
-
-TASK [Gathering Facts] *********************************************************
-ok: [bagi0-3]
 
 TASK [influxdb : Download influxdb] ********************************************
 ok: [bagi0-3]
@@ -1452,128 +2221,107 @@ ok: [bagi0-3]
 TASK [influxdb : Install influxDB] *********************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add InfluxDB conf file] ***************************************
+TASK [influxdb : Configure InfluxDB] *******************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Ensure influxdb is always started please] *********************
+TASK [influxdb : Start and enable InfluxDB] ************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add Telegraf Apt signing key] *********************************
+TASK [influxdb : Add InfluxData repository key] ********************************
 ok: [bagi0-3]
 
-TASK [influxdb : Get Telegraf deb] *********************************************
+TASK [influxdb : Add InfluxData repository] ************************************
 ok: [bagi0-3]
 
 TASK [influxdb : Install Telegraf] *********************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add Telegraf conf file] ***************************************
+TASK [influxdb : Configure Telegraf] *******************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Ensure influxdb is always started please] *********************
+TASK [influxdb : Start and enable Telegraf] ************************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add Influxdb Exporter Service Binary file] ********************
+TASK [influxdb : Download InfluxDB stats exporter] *****************************
 ok: [bagi0-3]
 
-TASK [influxdb : Change file ownership, group and permissions] *****************
+TASK [influxdb : Copy influx exporter service file] ****************************
 ok: [bagi0-3]
 
-TASK [influxdb : Add Influxdb Exporter Service] ********************************
+TASK [influxdb : Start and enable influx exporter] *****************************
 ok: [bagi0-3]
 
-TASK [influxdb : Execute systemd reload to enable influx exporter service] *****
+TASK [influxdb : Ensure InfluxDB backup directory exists and set correct permissions] ***
 ok: [bagi0-3]
 
-TASK [influxdb : Start influx exporter uncodnitionally] ************************
-ok: [bagi0-3]
-
-TASK [influxdb : Upload cron influxdb-backup] **********************************
-ok: [bagi0-3]
+TASK [influxdb : Create InfluxDB backup and upload cron jobs] ******************
+ok: [bagi0-3] => (item={'name': 'InfluxDB telegraf database backup', 'minute': '0', 'hour': '17', 'weekday': '*', 'job': 'rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb'})
+ok: [bagi0-3] => (item={'name': 'Duplicity full backup of InfluxDB', 'minute': '15', 'hour': '17', 'weekday': '6', 'job': 'duplicity --no-encryption full /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb'})
+ok: [bagi0-3] => (item={'name': 'Duplicity incremental backup of InfluxDB', 'minute': '30', 'hour': '17', 'weekday': '0-5', 'job': 'duplicity --no-encryption incremental /home/backup/influxdb/ rsync://bagi0@backup.rabagh.io/influxdb'})
 
 TASK [influxdb : Add InfluxDB CNAME records] ***********************************
 ok: [bagi0-3] => (item={'key': 'influxdb', 'value': 'bagi0-3'})
 
-PLAY [Pinger] ******************************************************************
-
-TASK [Gathering Facts] *********************************************************
+TASK [pinger : Add user "pinger"] **********************************************
 ok: [bagi0-3]
 
 TASK [pinger : Install fping] **************************************************
 ok: [bagi0-3]
 
-TASK [pinger : Create user "pinger"] *******************************************
+TASK [pinger : Create pinger directory] ****************************************
 ok: [bagi0-3]
 
-TASK [pinger : Add pinger shell to vm in /usr/local/bin] ***********************
+TASK [pinger : Copy pinger service file] ***************************************
 ok: [bagi0-3]
 
-TASK [pinger : Add Pinger Service] *********************************************
+TASK [pinger : Copy pinger config] *********************************************
 ok: [bagi0-3]
 
-TASK [pinger : Execute systemd reload to enable pinger service] ****************
+TASK [pinger : Copy pinger shell file] *****************************************
 ok: [bagi0-3]
 
-TASK [pinger : Create pinger conf dir] *****************************************
+TASK [pinger : Start and enable pinger] ****************************************
 ok: [bagi0-3]
 
-TASK [pinger : Add pinger conf to vm] ******************************************
+TASK [nginx : Install nginx] ***************************************************
 ok: [bagi0-3]
 
-TASK [pinger : Start pinger uncodnitionally] ***********************************
+TASK [nginx : Copy default to Sites-enabled] ***********************************
 ok: [bagi0-3]
 
-PLAY [Keepalived and Haproxy] **************************************************
+TASK [nginx : Ensure Nginx service is started and enabled at boot] *************
+ok: [bagi0-3]
+
+TASK [nginx : Install Nginx exporter] ******************************************
+ok: [bagi0-3]
+
+TASK [nginx : Start and enable nginx exporter] *********************************
+ok: [bagi0-3]
+
+TASK [nginx : Upload prometheus-nginx-exporter configuration] ******************
+ok: [bagi0-3]
+
+TASK [nginx : Add www CNAME records] *******************************************
+ok: [bagi0-3] => (item={'key': 'www-1', 'value': 'bagi0-1'})
+ok: [bagi0-3] => (item={'key': 'www-2', 'value': 'bagi0-2'})
+
+PLAY [Load Balancer and High Availability] *************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [bagi0-2]
 ok: [bagi0-1]
-
-TASK [keepalived : Install keepalived & keepalived_exporter] *******************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : Create user "keepalived_script"] ****************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : keepalived.conf] ********************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : vrrp_script] ************************************************
-ok: [bagi0-1]
-ok: [bagi0-2]
-
-TASK [keepalived : Install keepalived_exporter] ********************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [keepalived : keepalived exporter service] ********************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [keepalived : keepalived exporter args] ***********************************
-ok: [bagi0-2]
-ok: [bagi0-1]
-
-TASK [keepalived : Enable keepalived and keepalived_exporter] ******************
-ok: [bagi0-1] => (item=keepalived)
-ok: [bagi0-2] => (item=keepalived)
-ok: [bagi0-1] => (item=keepalived_exporter)
-ok: [bagi0-2] => (item=keepalived_exporter)
 
 TASK [haproxy : Install HAProxy] ***********************************************
 ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [haproxy : Upload HAProxy configuration] **********************************
-ok: [bagi0-1]
 ok: [bagi0-2]
+ok: [bagi0-1]
 
 TASK [haproxy : Ensure HAProxy is running and enabled] *************************
-ok: [bagi0-2]
 ok: [bagi0-1]
+ok: [bagi0-2]
 
 TASK [haproxy : Install HAproxy exporter] **************************************
 ok: [bagi0-1]
@@ -1588,15 +2336,47 @@ ok: [bagi0-1]
 ok: [bagi0-2]
 
 TASK [haproxy : Add HAproxy CNAME records] *************************************
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb1', 'value': 'bagi0-1'})
 ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb1', 'value': 'bagi0-1'})
-ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb2', 'value': 'bagi0-2'})
+ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb1', 'value': 'bagi0-1'})
 ok: [bagi0-1 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb2', 'value': 'bagi0-2'})
+ok: [bagi0-2 -> bagi0-3(193.40.156.67)] => (item={'key': 'lb2', 'value': 'bagi0-2'})
+
+TASK [keepalived : Install keepalived] *****************************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [keepalived : Upload keepalived configuration] ****************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [keepalived : Upload keepalived check script] *****************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [keepalived : Ensure keepalived is running] *******************************
+ok: [bagi0-2]
+ok: [bagi0-1]
+
+TASK [keepalived : Extract Keepalived exporter from tar.gz file] ***************
+skipping: [bagi0-1]
+skipping: [bagi0-2]
+
+TASK [keepalived : Set permissions for keepalived-exporter binary] *************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [keepalived : Add keepalived exporter Service] ****************************
+ok: [bagi0-1]
+ok: [bagi0-2]
+
+TASK [keepalived : Enable and start keepalived-exporter] ***********************
+ok: [bagi0-1]
+ok: [bagi0-2]
 
 PLAY RECAP *********************************************************************
-bagi0-1                    : ok=75   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
-bagi0-2                    : ok=75   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
-bagi0-3                    : ok=77   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+bagi0-1                : ok=70   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+bagi0-2                : ok=70   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+bagi0-3                : ok=71   changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 
 + date
-Wed Jan 17 12:25:35 PM EET 2024
+Thu Dec 28 10:31:25 EET 2023
