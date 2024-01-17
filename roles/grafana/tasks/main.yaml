@@ -12,6 +12,7 @@
     src: grafana.ini.j2
     mode: '0644'
   notify: restart grafana
+  no_log: yes
 
 - name: Template files
   template:

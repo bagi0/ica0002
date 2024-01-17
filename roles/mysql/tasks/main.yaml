@@ -58,6 +58,7 @@
       group: prometheus
       mode: 0644
     notify: Restart MySQL exporter
+    no_log: true
     
   - name: Create MySQL exporter user
     community.mysql.mysql_user:
@@ -141,7 +142,7 @@
   - name: read only mode for replica server, and remove it from source server
     community.mysql.mysql_variables:
       variable: read_only
-      value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
+      value: "{{ 'OFF' if inventory_hostname == dns_mysql_records[mysql_host] else 'ON' }}"
       mode: persist
       login_unix_socket: /var/run/mysqld/mysqld.sock
     notify:

@@ -28,6 +28,7 @@
       src: templates/named.conf.options.j2
       dest: /etc/bind/named.conf.options
     notify: Restart bind
+    no_log: yes
   
   - name: Disable systemd-resolved
     service:
@@ -42,6 +43,8 @@
     notify: 
       - Restart bind
       - Restart rndc
+    no_log: yes
+
   - name: Configure rabagh.io.j2
     template:
       src: templates/db.rabagh.j2
@@ -50,6 +53,7 @@
     notify: 
       - Restart bind
       - Restart rndc
+    no_log: yes
     when: inventory_hostname in groups ['dns_primary']
 
   - name: Configure db.rev.j2
@@ -60,6 +64,7 @@
     notify: 
       - Restart bind
       - Restart rndc
+    no_log: yes
     when: inventory_hostname in groups ['dns_primary']
         
   - name: Upload prometheus bind exporter var conf
