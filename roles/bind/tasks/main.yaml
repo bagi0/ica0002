@@ -41,7 +41,7 @@
       dest: /etc/bind/named.conf.local     
     notify: 
       - Restart bind
-      - Reload rndc
+      - Restart rndc
   - name: Configure rabagh.io.j2
     template:
       src: templates/db.rabagh.j2
@@ -49,7 +49,7 @@
       force: no
     notify: 
       - Restart bind
-      - Reload rndc
+      - Restart rndc
     when: inventory_hostname in groups ['dns_primary']
 
   - name: Configure db.rev.j2
@@ -59,7 +59,7 @@
       force: no
     notify: 
       - Restart bind
-      - Reload rndc
+      - Restart rndc
     when: inventory_hostname in groups ['dns_primary']
 
   - name: Copy resolv.conf
