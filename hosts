@@ -1,35 +1,43 @@
-bagi0-1 ansible_host=193.40.156.67 ansible_port=1322 ansible_user=ubuntu
-bagi0-2 ansible_host=193.40.156.67 ansible_port=18922 ansible_user=ubuntu
+bagi0-1 ansible_host=193.40.156.67 ansible_port=35022 ansible_user=ubuntu
+bagi0-2 ansible_host=193.40.156.67 ansible_port=31322 ansible_user=ubuntu
+bagi0-3 ansible_host=193.40.156.67 ansible_port=42022 ansible_user=ubuntu
 
-[db_servers]
+[init]
 bagi0-1
 bagi0-2
+bagi0-3
+
+[web_servers]
+bagi0-1
+bagi0-2
+bagi0-3
 
 [dns_primary]
-bagi0-2
+bagi0-3
 
 [dns_secondary]
 bagi0-1
+bagi0-2
 
 [dns_servers:children]
 dns_primary
 dns_secondary
 
-[web_servers]
+[db_servers]
 bagi0-1
+bagi0-2
 
 [prometheus]
-bagi0-2
+bagi0-3
 
 [grafana]
-bagi0-2
+bagi0-3
 
 [influxdb]
-bagi0-2
+bagi0-3
 
-[init]
-bagi0-1
-bagi0-2
+[pinger]
+bagi0-3
 
 [agama]
 bagi0-1

@@ -1,18 +1,17 @@
-- name: Initial setup
-  hosts: all
-  tags:
-    - init
+---
+- name: Init
+  hosts: init
   roles:
+    - init
+  tags:
     - init
 
-- name: Database server
-  hosts: db_servers
-  tags:
-    - db
-    - sql
-    - mysql
+- name: DNS server
+  hosts: dns_servers
   roles:
-    - mysql
+    - bind
+  tags:
+    - bind
 
 - name: DNS setup
   hosts: all
@@ -20,14 +19,29 @@
     - dns_setup
   tags:
     - dns
-    
-- name: docker
+
+- name: Docker setup
   hosts: all
   roles:
     - docker
-  tags:
-    - docker
+  tags: 
+    - doc
 
+- name: Database server
+  hosts: db_servers
+  roles:
+    - mysql
+  tags:
+    - db
+
+- name: Web server
+  hosts: web_servers
+  roles:
+    - nginx
+  tags:
+    - web
+    - nginx
+    
 - name: Agama
   hosts: agama
   roles:
@@ -35,47 +49,34 @@
   tags:
     - agama
 
-- name: Deploy Web Servers
-  hosts: web_servers
-  tags:
-    - web
-    - nginx
-  roles:
-    - agama
-    # - uwsgi
-    - nginx
-
-- name: DNS Server Setup
-  hosts: dns_servers
-  become: yes
-  gather_facts: yes
-  tags:
-    - dns
-    - bind
-    - bind9
-  roles:
-    - bind
-
-- name: Prometheus server
+- name: Configure Prometheus
   hosts: prometheus
-  tags:
-    - monitoring
-    - prom
-    - prometheus
   roles:
     - prometheus
-    - nginx
+  tags:
+    - promo
+
+- name: Grafana
+  hosts: grafana
+  roles:
+    - grafana
+  tags:
     - grafana
 
-- name: InfluxDB server
+- name: Influxdb
   hosts: influxdb
-  tags:
-    - influxdb
-    - telegraf
   roles:
     - influxdb
-    - pinger
+  tags:
+    - influxdb
     
+- name: Pinger
+  hosts: pinger
+  roles:
+    - pinger  
+  tags:
+    - pinger
+
 - name: Keepalived and Haproxy
   hosts: haproxy
   roles:
@@ -83,3 +84,4 @@
     - haproxy
   tags:
     - ha  
+    - keepalived
