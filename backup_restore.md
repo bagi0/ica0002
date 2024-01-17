@@ -1,40 +1,84 @@
-Install and configure infrastructure with Ansible:
+Backup Restoration Guide
+------------------------
 
-    ansible-playbook infra.yaml
+MySQL Data Restoration
+----------------------
+This guide describes the process of restoring the MySQL database from a backup.
 
-Restore MySQL data from the backup:
+Prerequisites:
+- Access to the MySQL server with root privileges.
+- The backup files available on the server.
 
-    sudo -u backup rm -r /home/backup/restore/mysql
-    sudo -u backup duplicity --no-encryption restore rsync://bagi0@backup/mysql /home/backup/restore/mysql
-    sudo su
-    mysql agama < /home/backup/mysql/agama.sql
+Restoration Steps:
+1. Download the Backup:
 
-Finally, log into the agama webpage if you want to see your restoration results easily.
-Restore can also be checked by logging into my SQL in the machine and checking the TABLE agama directly
+Log in as the `backup` user and download the backup from the backup server:
 
-    sudo mysql
-    SHOW DATABASES;
-    USE agama;
-    SELECT * FROM agama.item;
-    
-    
-Restore InfluxDB data from the backup:
+sudo -i -u backup
 
-    sudo -u backup rm -r /home/backup/restore/influxdb
-    sudo -u backup duplicity --no-encryption restore rsync://bagi0@backup/influxdb /home/backup/restore/influxdb
-    sudo su
-    service telegraf stop
-    influx -execute 'DROP DATABASE telegraf'
-    service pinger stop
-    influx -execute 'DROP DATABASE latency'
-    influxd restore -portable /home/backup/restore/influxdb
-    
-Note: Even if telegraf is the only one wanted to be restored, it is not going to work unless you also DROP latency and stop pinger.
+duplicity --no-encryption restore rsync://bagi0@backup.rabagh.io/mysql /home/backup/restore/mysql
 
-To Check if this worked do the following:
+Check if the file is actually restored:
 
-    sudo su
-    influx
-    SHOW DATABASES
-    
-Check if the databases telegraf and latency are there. If they are, good.
+ls -la /home/backup/restore/mysql
+
+If the file is missing clear duplicity cache and run the duplicity restore command again:
+
+sudo rm -rf /home/backup/.cache/duplicity
+
+2. Prepare MySQL database:
+
+Switch back to ubuntu/root user.
+Before restoring, ensure the agama database is clean or does not exist to prevent conflicts:
+
+sudo mysql -e "DROP DATABASE IF EXISTS agama; CREATE DATABASE agama;"
+
+3. Restore MySQL Data:
+Execute the following command as the `root` user:
+
+mysql agama < /home/backup/restore/mysql/agama.sql
+
+4. Verification:
+Verify the integrity and completeness of the restored data by accessing agama via pubic url and checking table records.
+
+
+InfluxDB Data Restoration
+-------------------------
+This section details the steps to restore the InfluxDB `telegraf` database from the backup.
+
+Prerequisites:
+- Access to the InfluxDB server.
+- The backup files must be available on the server.
+
+Restoration Steps:
+1. Stop Telegraf Service:
+Prevent data writes during the restoration process.
+
+sudo service telegraf stop
+
+2. Download the Backup:
+Log in as the `backup` user and download the InfluxDB backup.
+
+sudo -i -u backup
+
+duplicity --no-encryption restore rsync://bagi0@backup.rabagh.io/influxdb /home/backup/restore/influxdb
+
+3. Restore the Database:
+- Drop the existing `telegraf` database.
+
+  influx -execute 'DROP DATABASE telegraf'
+
+- Restore the `telegraf` database from the backup.
+
+  influxd restore -portable -database telegraf /home/backup/restore/influxdb
+
+
+4. Restart the Telegraf Service:
+After verifying the restoration, login back to root/ubuntu and restart the Telegraf service.
+
+sudo service telegraf start
+
+Verification:
+Ensure that the `telegraf` database has been restored correctly.
+
+sudo systemctl status telegraf

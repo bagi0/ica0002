@@ -72,7 +72,10 @@
       name: prometheus-bind-exporter
       enabled: yes
       state: started
-     
+
+  - name: Restart bind and reload rndc
+    meta: flush_handlers
+
   - name: Add A server records
     when: inventory_hostname in groups['dns_primary']
     community.general.nsupdate:

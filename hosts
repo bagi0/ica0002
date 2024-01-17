@@ -20,8 +20,8 @@ bagi0-1
 bagi0-2
 
 [dns_servers:children]
-dns_primary
 dns_secondary
+dns_primary
 
 [db_servers]
 bagi0-1

@@ -200,3 +200,6 @@ dns_prometheus_records:
 dns_nginx_records:  
   www-1: "{{ groups['web_servers'][0] }}"
   www-2: "{{ groups['web_servers'][1] }}"
+
+# user
+user: bagi0

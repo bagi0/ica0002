@@ -92,19 +92,32 @@
       priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
       login_unix_socket: /var/run/mysqld/mysqld.sock
       
-  - name: Make Backup Template
-    template:
-      src: my2.cnf.j2
-      dest: /home/backup/.my.cnf
-      owner: backup
-      mode: '0400'
-
-  - name: Make cron backup
-    template:
-      src: back.conf
-      dest: /etc/cron.d/mysql-backup
-      mode: '0400'
-      owner: root
+  - name: Create or remove MySQL dump and upload cron jobs based on host role
+    ansible.builtin.cron:
+      name: "{{ item.name }}"
+      minute: "{{ item.minute }}"
+      hour: "{{ item.hour }}"
+      weekday: "{{ item.weekday }}"
+      job: "{{ item.job }}"
+      user: backup
+      cron_file: mysql-backup
+      state: "{{ 'present' if inventory_hostname == dns_mysql_records[mysql_backup_host] else 'absent' }}"
+    loop:
+      - name: "agama db backup"
+        minute: "30"
+        hour: "16"   # 18:30 EE
+        weekday: "*" # Every day of the week
+        job: "mysqldump agama > /home/backup/mysql/agama.sql"
+      - name: "duplicity full"
+        minute: "45" 
+        hour: "16"   # 18:45 EE
+        weekday: "6" # Only on Saturday
+        job: "duplicity --no-encryption full /home/backup/mysql/ rsync://bagi0@backup.{{ fqdn }}/mysql"
+      - name: "duplicity increment"
+        minute: "45"
+        hour: "16"   # 18:45 EE
+        weekday: "0-5" # Every day except Saturday
+        job: "duplicity --no-encryption incremental /home/backup/mysql/ rsync://bagi0@backup.{{ fqdn }}/mysql"
 
 # lab 11 
 

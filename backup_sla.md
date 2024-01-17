@@ -1,53 +1,22 @@
-# Backup Service Level Agreement
+## Backup Service Level Agreement (SLA)
 
-### ICA002
-### Rashad Baghiyev
+# ICA0002 
+# Rashad Baghiyev 214075IVSB
 
+# Infrastructure Backup Overview
+This SLA outlines the backup strategy for the critical components of our IT infrastructure developed and managed during the course. It ensures data integrity, availability, and swift recovery in case of data loss.
 
-This document provides backup information concerning the IT infrastructure developed during the course.
+# Infrastructure Components Covered
+Database Server: MySQL storage of structured data for agama application.
+InfluxDB: Time-series data storage for monitoring and metrics.
 
-## Backup Coverage
+# Recovery Point Objective (RPO)
+Backup Frequency: Daily
+Backup Window: 18:30 - 20:00 UTC+2 (Estonian time)
+Acceptable Data Loss: Maximum of 24 hours.
 
-- Database servers
-- InfluxDB
-- Ansible Repository
-
-## Recovery Point Objective (RPO)
-
-Backups performed are incremental. One full backup is made every Sunday at the specified time below. Every day, except for Sunday, incremental backups are made.
-```sh
-Backup update frequency: 24h
-Backup creation time: 10:00pm
-```
-
-## Versioning and Retention
-
-
-```sh
-Retention Time: 30 days (720h)
-Versions: 30
-```
-
-
-## Usability checks
-
-Usability tests are done every 3 days. Tests include:
-
-- Backup creation was on time
-- Is backup readable
-- Is backup enough to restore the service
-- Could service be restored to needed state?
-
-## Restoration criteria
-
-
-Backup restoration should be the last resort. Restoration should be implemented only in two scenarios:
-
-- The service has been down for more than 2 days
-- Monetary value currently losing surpasses monetary value of data that will be lost with backup.
-
-
-## Recovery Time Objective (RTO)
-
-
-Service Recovery Time: 2h
+# Restoration Criteria
+Backups are considered for restoration in the following scenarios:
+Extended Downtime: Service downtime exceeding 6 hours.
+Data Corruption: Irrecoverable data loss or corruption impacting service functionality.
+Disaster Recovery: In the event of critical system failures or cyber attacks.
