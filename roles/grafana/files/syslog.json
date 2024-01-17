@@ -20,7 +20,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 12433,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 4,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -31,7 +31,7 @@
       "dashes": false,
       "datasource": {
         "type": "influxdb",
-        "uid": "PD39DF8CE8C1D829D"
+        "uid": "telegraf"
       },
       "decimals": 0,
       "fill": 1,
@@ -113,7 +113,7 @@
           "alias": "Info",
           "datasource": {
             "type": "influxdb",
-            "uid": "PD39DF8CE8C1D829D"
+            "uid": "telegraf"
           },
           "groupBy": [
             {
@@ -184,7 +184,7 @@
           "alias": "Notice",
           "datasource": {
             "type": "influxdb",
-            "uid": "PD39DF8CE8C1D829D"
+            "uid": "telegraf"
           },
           "groupBy": [
             {
@@ -255,7 +255,7 @@
           "alias": "Warning",
           "datasource": {
             "type": "influxdb",
-            "uid": "PD39DF8CE8C1D829D"
+            "uid": "telegraf"
           },
           "groupBy": [
             {
@@ -326,7 +326,7 @@
           "alias": "Error",
           "datasource": {
             "type": "influxdb",
-            "uid": "PD39DF8CE8C1D829D"
+            "uid": "telegraf"
           },
           "groupBy": [
             {
@@ -397,7 +397,7 @@
           "alias": "Critical",
           "datasource": {
             "type": "influxdb",
-            "uid": "PD39DF8CE8C1D829D"
+            "uid": "telegraf"
           },
           "groupBy": [
             {
@@ -468,7 +468,7 @@
           "alias": "Alert",
           "datasource": {
             "type": "influxdb",
-            "uid": "PD39DF8CE8C1D829D"
+            "uid": "telegraf"
           },
           "groupBy": [
             {
@@ -539,7 +539,7 @@
           "alias": "Emergency",
           "datasource": {
             "type": "influxdb",
-            "uid": "PD39DF8CE8C1D829D"
+            "uid": "telegraf"
           },
           "groupBy": [
             {
@@ -642,7 +642,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "PD39DF8CE8C1D829D"
+        "uid": "telegraf"
       },
       "description": "",
       "fieldConfig": {
@@ -815,7 +815,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "PD39DF8CE8C1D829D"
+            "uid": "telegraf"
           },
           "groupBy": [
             {
@@ -899,7 +899,7 @@
         },
         "datasource": {
           "type": "influxdb",
-          "uid": "PD39DF8CE8C1D829D"
+          "uid": "telegraf"
         },
         "definition": "SHOW TAG VALUES FROM syslog WITH KEY=appname",
         "hide": 0,
@@ -927,7 +927,7 @@
         },
         "datasource": {
           "type": "influxdb",
-          "uid": "PD39DF8CE8C1D829D"
+          "uid": "telegraf"
         },
         "definition": "SHOW TAG VALUES FROM syslog WITH KEY=hostname",
         "hide": 0,
@@ -955,7 +955,7 @@
         },
         "datasource": {
           "type": "influxdb",
-          "uid": "PD39DF8CE8C1D829D"
+          "uid": "telegraf"
         },
         "definition": "SHOW TAG VALUES FROM syslog WITH KEY=severity",
         "hide": 0,
@@ -1024,6 +1024,6 @@
   "timezone": "",
   "title": "Syslog",
   "uid": "TIYeHqRgZ",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

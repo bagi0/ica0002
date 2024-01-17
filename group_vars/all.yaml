@@ -146,25 +146,39 @@ prometheus_exporters:
 prometheus_jobs:
   - name: linux
     target_port: "{{ linux_exporter_port }}"
-    target_group: all
+    target_group: 
+      - bagi0-1
+      - bagi0-2
+      - bagi0-3
   - name: bind9
     target_port: "{{ bind_exporter_port }}"
-    target_group: dns_servers
+    target_group: 
+      - ns1
+      - ns2
+      - ns3
   - name: mysql
     target_port: "{{ mysql_exporter_port }}"
-    target_group: db_servers
+    target_group: 
+      - mysql1
+      - mysql2
   - name: nginx
     target_port: "{{ nginx_exporter_port }}"
-    target_group: all
+    target_group: 
+      - www-1
+      - www-2
   - name: influxdb
     target_port: "{{ influxdb_exporter_port }}"
-    target_group: prometheus
+    target_group: influxdb
   - name: haproxy
     target_port: "{{ haproxy_exporter_port }}"
-    target_group: haproxy
+    target_group: 
+      - lb1
+      - lb2
   - name: keepalived
     target_port: "{{ keepalived_exporter_port }}"
-    target_group: haproxy
+    target_group: 
+      - lb1
+      - lb2
 
 pinger_pings:
   -  google.com
