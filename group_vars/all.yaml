@@ -37,7 +37,7 @@ replication_password: !vault |
           3239
 
 
-grafana_user: canavar
+grafana_user: bagi0
 grafana_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           62623934633462656338633431653232333432316336306135656237346535393064656134663566
