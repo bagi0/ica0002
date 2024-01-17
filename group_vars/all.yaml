@@ -168,7 +168,8 @@ prometheus_jobs:
       - www-2
   - name: influxdb
     target_port: "{{ influxdb_exporter_port }}"
-    target_group: influxdb
+    target_group: 
+      - influxdb
   - name: haproxy
     target_port: "{{ haproxy_exporter_port }}"
     target_group: 
