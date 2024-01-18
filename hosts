@@ -1,6 +1,6 @@
-bagi0-1 ansible_host=193.40.156.67 ansible_port=35022 ansible_user=ubuntu
-bagi0-2 ansible_host=193.40.156.67 ansible_port=44422 ansible_user=ubuntu
-bagi0-3 ansible_host=193.40.156.67 ansible_port=43122 ansible_user=ubuntu
+bagi0-1 ansible_host=193.40.156.67 ansible_port=19422 ansible_user=ubuntu
+bagi0-2 ansible_host=193.40.156.67 ansible_port=12322 ansible_user=ubuntu
+bagi0-3 ansible_host=193.40.156.67 ansible_port=3522 ansible_user=ubuntu
 
 [init]
 bagi0-1
