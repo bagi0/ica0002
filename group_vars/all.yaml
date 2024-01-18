@@ -77,8 +77,8 @@ local_network: 192.168.42.0/23
 localhost: 127.0.0.0/8  
 localhost_address: 127.0.0.1
 
-vm1_ip: 192.168.42.{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}
-vm2_ip: 192.168.42.{{ hostvars['bagi0-2']['ansible_default_ipv4']['address'].split('.')[3] }}
+vm1_ip: 192.168.43.{{ hostvars['bagi0-1']['ansible_default_ipv4']['address'].split('.')[3] }}
+vm2_ip: 192.168.43.{{ hostvars['bagi0-2']['ansible_default_ipv4']['address'].split('.')[3] }}
 
 
 node_id: "{{ (ansible_port / 100) | int }}"
